@@ -1,0 +1,45 @@
+<div class="container mt-4">
+  <h2>Explore Interests</h2>
+
+  <div class="row mb-4">
+    <div class="col-12">
+      <h4>Your Interests</h4>
+      <div class="d-flex flex-wrap gap-2">
+        <% @user_interests.each do |interest| %>
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title"><%= interest.name %></h5>
+              <p class="card-text"><small><%= pluralize(interest.posts.count, 'post') %></small></p>
+              <%= link_to "View Posts", interest_path(interest), class: "btn btn-primary btn-sm" %>
+              <%= button_to "Unfollow", unfollow_interest_path(interest),
+                    method: :delete,
+                    class: "btn btn-outline-danger btn-sm mt-2" %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <h4>All Interests</h4>
+      <div class="d-flex flex-wrap gap-2">
+        <% (@interests - @user_interests).each do |interest| %>
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title"><%= interest.name %></h5>
+              <p class="card-text">
+                <small><%= pluralize(interest.posts.count, 'post') %></small>
+              </p>
+              <%= link_to "View Posts", interest_path(interest), class: "btn btn-primary btn-sm" %>
+              <%= button_to "Follow", follow_interest_path(interest),
+                    method: :post,
+                    class: "btn btn-outline-primary btn-sm mt-2" %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

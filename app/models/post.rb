@@ -3,6 +3,7 @@ class Post < ApplicationRecord
 
   # Posts associations
   has_many :posts, dependent: :destroy
+  
 
   # Likes associations
   has_many :likes, dependent: :destroy
