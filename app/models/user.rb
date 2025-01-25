@@ -30,12 +30,12 @@ class User < ApplicationRecord
 
   # chat
 
-  has_many :conversations_as_user1, class_name: "Conversation", foreign_key: :user1_id, dependent: :destroy
-  has_many :conversations_as_user2, class_name: "Conversation", foreign_key: :user2_id, dependent: :destroy
+  # has_many :conversations_as_user1, class_name: "Conversation", foreign_key: :user1_id, dependent: :destroy
+  # has_many :conversations_as_user2, class_name: "Conversation", foreign_key: :user2_id, dependent: :destroy
 
-  def conversations
-    Conversation.where("user1_id = ? OR user2_id = ?", id, id)
-  end
+  # def conversations
+  #   Conversation.where("user1_id = ? OR user2_id = ?", id, id)
+  # end
 
 
 def follow(user)
