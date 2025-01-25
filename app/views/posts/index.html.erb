@@ -1,16 +1,59 @@
-<div class="home-page">
-<div class="feed">
-  <% if @posts.any? %>
-    <div class="posts-list">
-      <% @posts.each do |post| %>
-        <div class="post">
-          <h2><%= post.content %></h2>
-          <p>Posted by <%= link_to post.user.username, post.user %> on <%= post.created_at.strftime("%B %d, %Y %l:%M %p") %></p>
-        </div>
-        <hr>
-      <% end %>
-    </div>
+<h1>Feed</h1>
+
+<% if user_signed_in? %>
+  <%= link_to 'New Post', new_post_path, class: 'btn btn-primary mb-3' %>
+<% end %>
+
+<% @posts.each do |post| %>
+  <div class="post mb-4">
+    <p class="text-muted">Posted by <%= post.user.username %></p>
+    <%# if post.image.attached? %>
+      <%#= image_tag post.image, class: 'img-fluid mb-3' %>
+    <%# end %>
+<!---->
+    <p><%= post.content %></p>
+
+    <!-- Likes Section -->
+    <div class="likes">
+  <% if current_user && current_user.liked?(post) %>
+    <% like = post.likes.find_by(user: current_user) %>
+    <%= button_to 'Unlike', post_like_path(post, like), method: :delete, data: { turbo: true }, class: 'btn btn-secondary btn-sm' %>
+  <% else %>
+    <%= button_to 'Like', post_likes_path(post), method: :post, data: { turbo: true }, class: 'btn btn-primary btn-sm' %>
   <% end %>
-  <%= link_to 'New Post', new_post_path, class: 'btn btn-primary' %>
+  <span><%= post.likes.count %> likes</span>
 </div>
-</div>
+
+
+    <!-- Comments Section -->
+    <div class="comments" data-controller="comments">
+      <h3>Comments</h3>
+
+      <!-- Toggle Button -->
+      <button data-target="comments.toggleButton" data-action="click->comments#toggle">Show Comments</button>
+
+      <!-- Comment Form -->
+      <%= form_with(model: [post, post.comments.build], local: true, data: { controller: "comments", action: "turbo:submit-end->comments#resetForm" }) do |form| %>
+        <div class="field">
+          <%= form.label :content %>
+          <%= form.text_area :content, data: { target: "comments.content" } %>
+        </div>
+        <div class="actions">
+          <%= form.submit 'Add Comment', class: 'btn btn-success btn-sm' %>
+        </div>
+      <% end %>
+
+      <!-- Comments List -->
+     <ul data-target="comments.list">
+  <% post.comments.each do |comment| %>
+    <li>
+      <%= comment.content %>
+      <% if comment.user.present? %>
+        - <%= comment.user.username %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
+    </div>
+  </div>
+<% end %>
