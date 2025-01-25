@@ -1,0 +1,5 @@
+<%= turbo_stream.replace dom_id(@post, :like) do %>
+  <div id="<%= dom_id(@post, :like) %>" data-controller="like" data-like-post-id-value="<%= @post.id %>">
+    <i class="fa fa-heart" data-action="click->like#like" style="cursor: pointer;"></i>
+  </div>
+<% end %>

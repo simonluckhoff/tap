@@ -1,0 +1,9 @@
+<turbo-stream target="comments-<%= @post.id %>" action="append">
+  <template>
+    <div class="mb-2">
+      <strong><%= @comment.user.username %>:</strong>
+      <%= @comment.content %>
+      <small class="text-muted d-block"><%= time_ago_in_words(@comment.created_at) %> ago</small>
+    </div>
+  </template>
+</turbo-stream>

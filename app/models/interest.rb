@@ -5,5 +5,5 @@ class Interest < ApplicationRecord
   has_many :post_interests, dependent: :destroy
   has_many :posts, through: :post_interests
 
-  validates :name, presence: true, uniqueness: true
+  validates :title, presence: true, uniqueness: true
 end
