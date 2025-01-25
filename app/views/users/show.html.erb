@@ -1,0 +1,82 @@
+<div class="main-profile">
+  <div class="profile">
+    <div class="profile-header">
+
+    <!-- Profile Picture -->
+      <div class="profile-picture">
+        <% if @user.profile_url.present? %>
+          <%= image_tag @user.profile_url, alt: @user.username, class: 'profile-pic' %>
+        <% else %>
+          <%= image_tag 'default_profile_picture.png', alt: 'Default Profile Picture', class: 'profile-pic' %>
+        <% end %>
+      </div>
+
+      <div class="side-profile-header">
+        <div class="name-and-follow">
+
+          <div class="name">
+            <!--<h1><%#= @user.first_name %></h1>-->
+            <div class="name-user">@<%= @user.username %></div>
+          </div>
+
+          <!-- Follow/Unfollow Button-->
+          <div class="follow-button" id="follow-unfollow-container" data-controller="follow" data-user-id="<%= @user.id %>">
+            <% if current_user.following.include?(@user) %>
+              <button class="btn btn-outline-dark px-4" data-action="click->follow#unfollow" data-follow-target="button">
+                Unfollow
+              </button>
+            <% else %>
+              <button class="btn btn-primary px-5" data-action="click->follow#follow" data-follow-target="button">
+                Follow
+              </button>
+            <% end %>
+          </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats">
+          <div class="stats-item">
+            <p class="stats-number"><%= @user.posts.count %></p>
+            <p class="subheadings-stats">posts</p>
+          </div>
+          <div class="stats-item">
+            <p class="stats-number"><%= @user.followers.count %></p>
+            <p class="subheadings-stats">followers</p>
+          </div>
+          <div class="stats-item">
+            <p class="stats-number"><%= @user.following.count %></p>
+            <p class="subheadings-stats">following</p>
+          </div>
+        </div>
+
+        <div class="bio">
+          <p class="users-bio"><%= @user.bio %></p>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="posts">
+      <h2>Posts</h2>
+      <div class="posts-grid">
+        <% @user.posts.each do |post| %>
+          <div class="post">
+            <%= image_tag post.media_url, alt: post.content if post.media_url.present? %>
+            <p><%= post.content %></p>
+          </div>
+          <div class="copy-to-clipboard" data-controller="clipboard" data-clipboard-url-value=<%= post_url(post) %>>
+            <button class="share-button btn btn-outline-dark px-4" data-action="clipboard#copy">Share</button>
+        </div>
+          <% end %>
+    </div>
+
+
+    <div class="log-out-button">
+      <% if user_signed_in? && current_user == @user %>
+        <%= link_to 'Edit Profile', edit_user_path(@user), class: 'btn btn-primary' %>
+        <%= link_to 'Log Out', destroy_user_session_path(@user), class: 'btn btn-primary' %>
+      <% end %>
+    </div>
+
+  </div>
+</div>
