@@ -20,7 +20,7 @@
           <div class="card-body">
 
             <p class="card-text text-muted mb-2">
-              Posted by <strong><%= post.user.username %></strong>
+              Posted by <strong><%= link_to post.user.username, profile_path(post.user) %></strong>
               on <%= post.created_at.strftime("%B %d, %Y") %>
             </p>
 
