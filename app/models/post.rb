@@ -1,9 +1,9 @@
 class Post < ApplicationRecord
   belongs_to :user
-
+  has_one_attached :photo
   # Posts associations
   has_many :posts, dependent: :destroy
-  
+
 
   # Likes associations
   has_many :likes, dependent: :destroy
