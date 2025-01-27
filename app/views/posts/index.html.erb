@@ -1,59 +1,78 @@
-<h1>Feed</h1>
-
-<% if user_signed_in? %>
-  <%= link_to 'New Post', new_post_path, class: 'btn btn-primary mb-3' %>
-<% end %>
-
-<% @posts.each do |post| %>
-  <div class="post mb-4">
-    <p class="text-muted">Posted by <%= post.user.username %></p>
-    <%# if post.image.attached? %>
-      <%#= image_tag post.image, class: 'img-fluid mb-3' %>
-    <%# end %>
-<!---->
-    <p><%= post.content %></p>
-
-    <!-- Likes Section -->
-    <div class="likes">
-  <% if current_user && current_user.liked?(post) %>
-    <% like = post.likes.find_by(user: current_user) %>
-    <%= button_to 'Unlike', post_like_path(post, like), method: :delete, data: { turbo: true }, class: 'btn btn-secondary btn-sm' %>
-  <% else %>
-    <%= button_to 'Like', post_likes_path(post), method: :post, data: { turbo: true }, class: 'btn btn-primary btn-sm' %>
-  <% end %>
-  <span><%= post.likes.count %> likes</span>
+<h1 class="text-center mb-4">Posts</h1>
+<div class="text-center mb-4">
+  <%= link_to 'New Post', new_post_path, class: 'btn btn-primary' %>
 </div>
+<div class="container">
+  <div class="row justify-content-center">
+    <% @posts.each do |post| %>
+      <div class="col-md-6 col-lg-4 mb-4">
+        <!--<div class="card shadow-sm bg-light">-->
+          <%# if post.media_url.present? %>
+<!--            <img src="<%#= post.media_url %>" class="card-img-top" alt="Post media" style="height: 300px; object-fit: cover;">-->
+          <%# else %>
+<!--            <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 300px;">
+              <p class="text-muted">No media available</p>
+            </div>
+          <%# end %>-->
+          <div class="card-body">
+            <h5 class="card-title mb-1">
+              <%#= link_to post.content.truncate(30), post, class: 'text-dark' %>
+            </h5>
+            <p class="card-text text-muted mb-2">
+              Posted by <strong><%= post.user.username %></strong>
+              on <%= post.created_at.strftime("%B %d, %Y") %>
+            </p>
 
+                                   <!-- Like Icon -->
+                          <div id="<%= dom_id(post, :like) %>" data-controller="like" data-like-post-id-value="<%= post.id %>" data-like-liked-value="<%= user_signed_in? && current_user.likes.exists?(post: post) %>">
+              <i class="fa fa-heart <%= user_signed_in? && current_user.likes.exists?(post: post) ? 'liked text-danger' : '' %>" data-action="click->like#toggleLike" style="cursor: pointer;"></i>
+            </div>
 
-    <!-- Comments Section -->
-    <div class="comments" data-controller="comments">
-      <h3>Comments</h3>
+            <!-- Comment Icon -->
+            <a href="#" class="text-dark" data-bs-toggle="collapse" data-bs-target="#comments-<%= post.id %>" title="Comments">
+              <i class="fa fa-comment" style="font-size: 1.2rem;"></i>
+            </a>
 
-      <!-- Toggle Button -->
-      <button data-target="comments.toggleButton" data-action="click->comments#toggle">Show Comments</button>
+                       <!-- Share Icon -->
+            <a href="#" class="text-dark" data-bs-toggle="collapse" data-bs-target="#share-<%= post.id %>" title="Share">
+              <i class="fa fa-share" style="font-size: 1.2rem;"></i>
+            </a>
+            </div>
 
-      <!-- Comment Form -->
-      <%= form_with(model: [post, post.comments.build], local: true, data: { controller: "comments", action: "turbo:submit-end->comments#resetForm" }) do |form| %>
-        <div class="field">
-          <%= form.label :content %>
-          <%= form.text_area :content, data: { target: "comments.content" } %>
-        </div>
-        <div class="actions">
-          <%= form.submit 'Add Comment', class: 'btn btn-success btn-sm' %>
+             <div class="collapse mt-3" id="comments-<%= post.id %>">
+              <%= form_with(model: [post, Comment.new], local: false) do |form| %>
+                <div class="input-group mb-2">
+                  <%= form.text_field :content, placeholder: "Write a comment...", class: "form-control" %>
+                  <%= form.submit "Post", class: "btn btn-primary" %>
+                </div>
+              <% end %>
+              <% post.comments.each do |comment| %>
+                <div class="mb-2">
+                  <strong><%= comment.user.username %>:</strong>
+                  <%= comment.content %>
+                  <small class="text-muted d-block"><%= time_ago_in_words(comment.created_at) %> ago</small>
+                </div>
+              <% end %>
+            </div>
+            <!-- Share Section -->
+            <div class="collapse" id="share-<%= post.id %>">
+              <div class="d-flex justify-content-around">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=<%= post_url(post) %>" target="_blank" class="btn btn-sm btn-primary">
+
+         <i class="fab fa-facebook-f"></i> Facebook
+                </a>
+
+                  <a href="https://www.linkedin.com/sharing/share-offsite/?url=<%= post_url(post) %>" target="_blank" class="btn btn-sm btn-secondary">
+                    <i class="fab fa-linkedin-in"></i> LinkedIn
+                  </a>
+                  <a href="https://wa.me/?text=<%= CGI.escape(post_url(post)) %>" target="_blank" class="btn btn-sm btn-success">
+                    <i class="fab fa-whatsapp"></i> WhatsApp
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       <% end %>
-
-      <!-- Comments List -->
-     <ul data-target="comments.list">
-  <% post.comments.each do |comment| %>
-    <li>
-      <%= comment.content %>
-      <% if comment.user.present? %>
-        - <%= comment.user.username %>
-      <% end %>
-    </li>
-  <% end %>
-</ul>
     </div>
   </div>
-<% end %>

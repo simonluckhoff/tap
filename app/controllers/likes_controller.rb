@@ -6,6 +6,7 @@ class LikesController < ApplicationController
     @like = current_user.likes.create(post: @post)
 
     respond_to do |format|
+      format.json { render json: { liked: true } } # Respond with JSON indicating the post is liked
       format.html { redirect_to posts_path }
       format.turbo_stream
     end
@@ -17,6 +18,7 @@ class LikesController < ApplicationController
     @like&.destroy
 
     respond_to do |format|
+      format.json { render json: { liked: false } } # Respond with JSON indicating the post is unliked
       format.html { redirect_to posts_path }
       format.turbo_stream
     end
@@ -79,4 +81,3 @@ class LikesController < ApplicationController
 #   @post = Post.find(params[:post_id])
 # end
 end
-
