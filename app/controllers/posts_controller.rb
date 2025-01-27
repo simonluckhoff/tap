@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!
 
   def index
     @posts = Post.includes(:user).order(created_at: :desc)
@@ -18,7 +18,7 @@ class PostsController < ApplicationController
     @post = Post.new(post_params)
     @post.user = current_user # Associate the post with the current user
     if @post.save
-      redirect_to @post, notice: 'Post was successfully created.'
+      redirect_to posts_path, notice: 'Post was successfully created.'
     else
       render :new
     end
@@ -60,6 +60,6 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:content, :media_url, interest_ids: [])
+    params.require(:post).permit(:content, :photo, interest_ids: [])
   end
 end

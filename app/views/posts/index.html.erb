@@ -1,21 +1,31 @@
 <h1 class="text-center mb-4">Feed</h1>
+
 <div class="text-center mb-4">
   <%= link_to 'New Post', new_post_path, class: 'btn btn-primary' %>
 </div>
+
 <div class="container">
   <div class="row justify-content-center">
     <% @posts.each do |post| %>
       <div class="col-md-6 col-lg-4 mb-4">
+        <div class="card shadow-sm bg-light">
+          <% if post.photo.attached? %>
+            <%= cl_image_tag post.photo.key, height: 300, width: 400, crop: :fill %>
+          <% else %>
+            <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 300px;">
+              <p class="text-muted">No media available</p>
+            </div>
+          <% end %>
+
           <div class="card-body">
-            <h5 class="card-title mb-1">
-              <%#= link_to post.content.truncate(30), post, class: 'text-dark' %>
-            </h5>
+    
             <p class="card-text text-muted mb-2">
               Posted by <strong><%= post.user.username %></strong>
               on <%= post.created_at.strftime("%B %d, %Y") %>
             </p>
 
-                                   <!-- Like Icon -->
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                          <!-- Like Icon -->
                           <div id="<%= dom_id(post, :like) %>" data-controller="like" data-like-post-id-value="<%= post.id %>" data-like-liked-value="<%= user_signed_in? && current_user.likes.exists?(post: post) %>">
               <i class="fa fa-heart <%= user_signed_in? && current_user.likes.exists?(post: post) ? 'liked text-danger' : '' %>" data-action="click->like#toggleLike" style="cursor: pointer;"></i>
             </div>
@@ -25,19 +35,21 @@
               <i class="fa fa-comment" style="font-size: 1.2rem;"></i>
             </a>
 
-                       <!-- Share Icon -->
+            <!-- Share Icon -->
             <a href="#" class="text-dark" data-bs-toggle="collapse" data-bs-target="#share-<%= post.id %>" title="Share">
               <i class="fa fa-share" style="font-size: 1.2rem;"></i>
             </a>
             </div>
 
-             <div class="collapse mt-3" id="comments-<%= post.id %>">
+
+            <div class="collapse mt-3" id="comments-<%= post.id %>">
               <%= form_with(model: [post, Comment.new], local: false) do |form| %>
                 <div class="input-group mb-2">
                   <%= form.text_field :content, placeholder: "Write a comment...", class: "form-control" %>
                   <%= form.submit "Post", class: "btn btn-primary" %>
                 </div>
               <% end %>
+
               <% post.comments.each do |comment| %>
                 <div class="mb-2">
                   <strong><%= comment.user.username %>:</strong>
@@ -46,25 +58,25 @@
                 </div>
               <% end %>
             </div>
+
             <!-- Share Section -->
             <div class="collapse" id="share-<%= post.id %>">
               <div class="d-flex justify-content-around">
                 <a href="https://www.facebook.com/sharer/sharer.php?u=<%= post_url(post) %>" target="_blank" class="btn btn-sm btn-primary">
-
-         <i class="fab fa-facebook-f"></i> Facebook
+                  <i class="fab fa-facebook-f"></i> Facebook
                 </a>
 
-                  <a href="https://www.linkedin.com/sharing/share-offsite/?url=<%= post_url(post) %>" target="_blank" class="btn btn-sm btn-secondary">
-                    <i class="fab fa-linkedin-in"></i> LinkedIn
-                  </a>
-                  <a href="https://wa.me/?text=<%= CGI.escape(post_url(post)) %>" target="_blank" class="btn btn-sm btn-success">
-                    <i class="fab fa-whatsapp"></i> WhatsApp
-                  </a>
-                </div>
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url=<%= post_url(post) %>" target="_blank" class="btn btn-sm btn-secondary">
+                  <i class="fab fa-linkedin-in"></i> LinkedIn
+                </a>
+                <a href="https://wa.me/?text=<%= CGI.escape(post_url(post)) %>" target="_blank" class="btn btn-sm btn-success">
+                  <i class="fab fa-whatsapp"></i> WhatsApp
+                </a>
               </div>
             </div>
           </div>
         </div>
-      <% end %>
-    </div>
+      </div>
+    <% end %>
   </div>
+</div>
