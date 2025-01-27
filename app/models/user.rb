@@ -30,24 +30,15 @@ class User < ApplicationRecord
 
   has_many :comments, dependent: :destroy
 
-  # chat
 
-  # has_many :conversations_as_user1, class_name: "Conversation", foreign_key: :user1_id, dependent: :destroy
-  # has_many :conversations_as_user2, class_name: "Conversation", foreign_key: :user2_id, dependent: :destroy
+  def follow(user)
+    Follow.find_or_create_by(follower: self, following: user)
+  end
 
-  # def conversations
-  #   Conversation.where("user1_id = ? OR user2_id = ?", id, id)
-  # end
-
-
-def follow(user)
-  Follow.find_or_create_by(follower: self, following: user)
-end
-
-def unfollow(user)
-  follow_record = Follow.find_by(follower: self, following: user)
-  follow_record.destroy if follow_record
-end
+  def unfollow(user)
+    follow_record = Follow.find_by(follower: self, following: user)
+    follow_record.destroy if follow_record
+  end
 
   # Check if following a user
   def following?(user)
