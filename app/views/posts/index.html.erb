@@ -13,14 +13,14 @@
             <%= cl_image_tag post.photo.key, height: 300, width: 400, crop: :fill %>
           <% else %>
             <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 300px;">
-              <p class="text-muted">No media available</p>
+              <p class="text-muted">No media available unfortunately my guy</p>
             </div>
           <% end %>
 
           <div class="card-body">
-    
+
             <p class="card-text text-muted mb-2">
-              Posted by <strong><%= post.user.username %></strong>
+              Posted by <strong><%= link_to post.user.username, profile_path(post.user) %></strong>
               on <%= post.created_at.strftime("%B %d, %Y") %>
             </p>
 
