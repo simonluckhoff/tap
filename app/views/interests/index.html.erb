@@ -8,7 +8,7 @@
         <% @user_interests.each do |interest| %>
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title"><%= interest.name %></h5>
+              <h5 class="card-title"><%= interest.title %></h5>
               <p class="card-text"><small><%= pluralize(interest.posts.count, 'post') %></small></p>
               <%= link_to "View Posts", interest_path(interest), class: "btn btn-primary btn-sm" %>
               <%= button_to "Unfollow", unfollow_interest_path(interest),
@@ -28,7 +28,7 @@
         <% (@interests - @user_interests).each do |interest| %>
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title"><%= interest.name %></h5>
+              <h5 class="card-title"><%= interest.title %></h5>
               <p class="card-text">
                 <small><%= pluralize(interest.posts.count, 'post') %></small>
               </p>
