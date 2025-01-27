@@ -1,91 +1,81 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static values = { postId: Number };
+  static values = { postId: Number, liked: Boolean }; // Add liked value to track state
+
+  connect() {
+    console.log("connected");
+    this.updateHeartIcon(this.likedValue); // Initialize the heart icon based on the initial state
+  }
 
   get csrfToken() {
     return document.querySelector('meta[name="csrf-token"]').getAttribute("content");
+  }
+
+  toggleLike() {
+    if (this.likedValue) {
+      this.unlike();
+    } else {
+      this.like();
+    }
   }
 
   like() {
     fetch(`/posts/${this.postIdValue}/like`, {
       method: "POST",
       headers: {
-        "Accept": "text/vnd.turbo-stream.html",
+        "Accept": "application/json",
         "X-CSRF-Token": this.csrfToken,
       },
-    }).catch((error) => console.error("Error liking the post:", error));
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log(data);
+      if (data.liked) {
+        this.likedValue = true; // Update the liked state
+        this.updateHeartIcon(true);
+      }
+    })
+    .catch((error) => console.error("Error liking the post:", error));
   }
 
   unlike() {
     fetch(`/posts/${this.postIdValue}/like`, {
       method: "DELETE",
       headers: {
-        "Accept": "text/vnd.turbo-stream.html",
+        "Accept": "application/json",
         "X-CSRF-Token": this.csrfToken,
       },
-    }).catch((error) => console.error("Error unliking the post:", error));
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log(data);
+      if (!data.liked) {
+        this.likedValue = false; // Update the liked state
+        this.updateHeartIcon(false);
+      }
+    })
+    .catch((error) => console.error("Error unliking the post:", error));
+  }
+
+  updateHeartIcon(isLiked) {
+    const heartIcon = this.element.querySelector('i');
+    if (isLiked) {
+      heartIcon.classList.add('liked', 'text-danger');
+      heartIcon.classList.remove('text-muted');
+    } else {
+      heartIcon.classList.remove('liked', 'text-danger');
+      heartIcon.classList.add('text-muted');
+    }
   }
 }
-
-
-// export default class extends Controller {
-//   static values = {
-//     postId: Number
-//   }
-
-//   like() {
-//     fetch(`/posts/${this.postIdValue}/like`, {
-//       method: 'POST',
-//       headers: {
-//         'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content,
-//         'Content-Type': 'application/json'
-//       }
-//     })
-//     .then(response => {
-//       if (response.ok) {
-//         return response.json();
-//       }
-//       throw new Error('Network response was not ok.');
-//     })
-//     .then(data => {
-//       this.updateLikeIcon(true); // Update the UI to show the post is liked
-//     })
-//     .catch(error => {
-//       console.error('There was a problem with the fetch operation:', error);
-//     });
-//   }
-
-//   unlike() {
-//     fetch(`/posts/${this.postIdValue}/unlike`, {
-//       method: 'DELETE',
-//       headers: {
-//         'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content,
-//         'Content-Type': 'application/json'
-//       }
-//     })
-//     .then(response => {
-//       if (response.ok) {
-//         return response.json();
-//       }
-//       throw new Error('Network response was not ok.');
-//     })
-//     .then(data => {
-//       this.updateLikeIcon(false); // Update the UI to show the post is unliked
-//     })
-//     .catch(error => {
-//       console.error('There was a problem with the fetch operation:', error);
-//     });
-//   }
-
-//   updateLikeIcon(isLiked) {
-//     const icon = this.element.querySelector('i');
-//     if (isLiked) {
-//       icon.classList.remove('fa-heart-o');
-//       icon.classList.add('fa-heart', 'text-danger', 'liked');
-//     } else {
-//       icon.classList.remove('fa-heart', 'text-danger', 'liked');
-//       icon.classList.add('fa-heart-o');
-//     }
-//   }
-// }

@@ -1,6 +1,5 @@
 <h1 class="text-center mb-4">Feed</h1>
 
-
 <div class="text-center mb-4">
   <%= link_to 'New Post', new_post_path, class: 'btn btn-primary' %>
 </div>
@@ -19,9 +18,7 @@
           <% end %>
 
           <div class="card-body">
-            <h5 class="card-title mb-1">
-              <%= link_to post.content.truncate(30), post, class: 'text-dark' %>
-            </h5>
+    
             <p class="card-text text-muted mb-2">
               Posted by <strong><%= post.user.username %></strong>
               on <%= post.created_at.strftime("%B %d, %Y") %>
