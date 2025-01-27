@@ -71,7 +71,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_01_27_172533) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["post_id"], name: "index_likes_on_post_id"
-    t.index ["user_id", "post_id"], name: "index_likes_on_user_id_and_post_id", unique: true
     t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
@@ -107,7 +106,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_01_27_172533) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["interest_id"], name: "index_user_interests_on_interest_id"
-    t.index ["user_id", "interest_id"], name: "index_user_interests_on_user_id_and_interest_id", unique: true
     t.index ["user_id"], name: "index_user_interests_on_user_id"
   end
 
