@@ -101,7 +101,6 @@ users.each do |user|
     Share.create!(
       user: user,
       post: post,
-      share_comment: "Check this out! Shared by #{user.username}"
     )
   end
 end
