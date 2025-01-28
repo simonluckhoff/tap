@@ -1,6 +1,15 @@
 class ProfilesController < ApplicationController
   before_action :authenticate_user!
 
+  def index
+    # @users = User.all
+    if params[:query].present?
+      @users = User.search_by_username(params[:query])
+    else
+      @users = User.all
+    end
+  end
+
   def show
     @user = User.find(params[:id])
     @posts = @user.posts.includes(:user).order(created_at: :desc) # Load user's posts

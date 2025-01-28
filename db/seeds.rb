@@ -47,6 +47,13 @@ users = []
     username: "user#{i+1}",
     bio: "Bio for user #{i+1}"
   )
+   # Attach a random image to the user
+   user.avatar.attach(
+    io: File.open(Rails.root.join("app/assets/images/user#{rand(1..5)}.jpg")),
+    filename: "user#{i + 1}.jpg",
+    content_type: "image/jpeg"
+  )
+  users << user
 end
 
 # # Create an admin user
@@ -63,8 +70,15 @@ users.each do |user|
   3.times do |i|
     Post.create!(
       user: user,
-      content: "This is post #{i+1} from #{user.username}. ##{interests.sample.title}"
+      content: "This is post #{i +
+      1} from #{user.username}. ##{interests.sample.title}"
     )
+      # Attach a random image to the post
+      post.image.attach(
+        io: File.open(Rails.root.join("app/assets/images/post#{rand(1..5)}.jpg")),
+        filename: "post#{i + 1}.jpg",
+        content_type: "image/jpeg"
+      )
   end
 end
 
