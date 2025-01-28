@@ -13,7 +13,7 @@ class InterestsController < ApplicationController
 
   def follow
     current_user.interests << @interest unless current_user.interests.include?(@interest)
-    redirect_to @interest, notice: "You are now following #{@interest.name}"
+    redirect_to @interest, notice: "You are now following #{@interest.title}"
   end
 
   def unfollow
