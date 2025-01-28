@@ -31,8 +31,7 @@
           </div>
         <% end %>
 
-        <%= link_to "Start Chat", conversations_path(user_id: @user.id), method: :post, class: "btn btn-primary" %>
-
+        <%= button_to "Start Chat", create_chat_path(recipient_id: @user.id), method: :post, class: "btn btn-primary" %>
 
       </div>
 
