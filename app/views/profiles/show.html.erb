@@ -71,7 +71,7 @@
             <% @user.interests.each do |interest| %>
               <%= link_to interest_path(interest), class: "text-decoration-none" do %>
                 <span class="badge bg-light text-dark border">
-                  <%= interest.name %>
+                  <%= interest.title %>
                 </span>
               <% end %>
             <% end %>
