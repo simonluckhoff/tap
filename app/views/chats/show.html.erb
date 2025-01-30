@@ -11,4 +11,5 @@
 <%= simple_form_for [@chat, Message.new], remote: true do |form| %>
   <%= form.input :content, as: :text, input_html: { rows: 2, placeholder: "Type a message..." } %>
   <%= form.button :submit, "Send" %>
+  <%= link_to 'Back to Chats', chats_path, class: 'back-button' %>
 <% end %>

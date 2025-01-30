@@ -18,7 +18,7 @@ class InterestsController < ApplicationController
 
   def unfollow
     current_user.interests.delete(@interest)
-    redirect_to @interest, notice: "You have unfollowed #{@interest.name}"
+    redirect_to @interest, notice: "You have unfollowed #{@interest.title}"
   end
 
   private
