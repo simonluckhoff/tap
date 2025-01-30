@@ -2,7 +2,7 @@ class Post < ApplicationRecord
   belongs_to :user
   has_one_attached :photo
   # Posts associations
-  has_many :posts, dependent: :destroy
+  # has_many :posts, dependent: :destroy
 
 
   # Likes associations
@@ -23,7 +23,7 @@ class Post < ApplicationRecord
   has_many :comments, dependent: :destroy
 
   # Interests associations
-  has_many :user_interests, dependent: :destroy
+  # has_many :user_interests, dependent: :destroy
   # has_many :interests, through: :user_interests
 
   has_many :post_interests, dependent: :destroy
