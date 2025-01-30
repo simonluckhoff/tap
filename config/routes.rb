@@ -2,7 +2,12 @@ Rails.application.routes.draw do
   devise_for :users
   root to: "posts#index"
 
-  resources :profiles, only: [:show, :edit, :update]
+  resources :profiles, only: [:show, :edit, :update] do
+    member do
+      get 'following'
+      get 'followers' 
+    end
+  end
 
    # RESTful resources
    resources :posts do
