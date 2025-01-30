@@ -10,6 +10,8 @@
 # db/seeds.rb
 
 # Clear existing data
+require 'faker'
+
 puts "Clearing old data..."
 Follow.destroy_all
 Like.destroy_all
@@ -40,17 +42,17 @@ end
 # Create users
 puts "Creating users..."
 users = []
-10.times do |i|
+10.times do
   user = User.new(
-    email: "user#{i+1}@example.com",
+    email: Faker::Internet.unique.email,
     password: 'password123',
-    username: "user#{i+1}",
-    bio: "Bio for user #{i+1}"
+    username: Faker::Internet.unique.username(specifier: 5..10),
+    bio: Faker::Quote.jack_handey
   )
    # Attach a random image to the user
    user.photo.attach(
     io: File.open(Rails.root.join("app/assets/images/user#{rand(1..5)}.jpg")),
-    filename: "user#{i + 1}.jpg",
+    filename: "user.jpg",
     content_type: "image/jpeg"
   )
   user.save
@@ -72,13 +74,12 @@ users.each do |user|
     puts "creating a user"
     post = Post.new(
       user: user,
-      content: "This is post #{i +
-      1} from #{user.username}. ##{interests.sample.title}"
+       content: "#{Faker::Quote.jack_handey} ##{interests.sample.title}"
     )
       # Attach a random image to the post
       post.photo.attach(
         io: File.open(Rails.root.join("app/assets/images/user#{rand(1..5)}.jpg")),
-        filename: "post#{i + 1}.jpg",
+        filename: "post.jpg",
         content_type: "image/jpeg"
       )
       post.save
