@@ -41,12 +41,20 @@ end
 puts "Creating users..."
 users = []
 10.times do |i|
-  users << User.create!(
+  user = User.new(
     email: "user#{i+1}@example.com",
     password: 'password123',
     username: "user#{i+1}",
     bio: "Bio for user #{i+1}"
   )
+   # Attach a random image to the user
+   user.photo.attach(
+    io: File.open(Rails.root.join("app/assets/images/user#{rand(1..5)}.jpg")),
+    filename: "user#{i + 1}.jpg",
+    content_type: "image/jpeg"
+  )
+  user.save
+  users << user
 end
 
 # # Create an admin user
@@ -61,10 +69,19 @@ end
 puts "Creating posts..."
 users.each do |user|
   3.times do |i|
-    Post.create!(
+    puts "creating a user"
+    post = Post.new(
       user: user,
-      content: "This is post #{i+1} from #{user.username}. ##{interests.sample.title}"
+      content: "This is post #{i +
+      1} from #{user.username}. ##{interests.sample.title}"
     )
+      # Attach a random image to the post
+      post.photo.attach(
+        io: File.open(Rails.root.join("app/assets/images/user#{rand(1..5)}.jpg")),
+        filename: "post#{i + 1}.jpg",
+        content_type: "image/jpeg"
+      )
+      post.save
   end
 end
 
@@ -101,6 +118,7 @@ users.each do |user|
     Share.create!(
       user: user,
       post: post,
+      # share_comment: "Check this out! Shared by #{user.username}"
     )
   end
 end

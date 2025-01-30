@@ -1,6 +1,14 @@
 class ProfilesController < ApplicationController
   before_action :authenticate_user!
 
+  def index
+    # @users = User.all
+    if params[:query].present?
+      @users = User.search_by_username(params[:query])
+    else
+      @users = User.all
+    end
+  end
   def following
     @user = User.find(params[:id])
     @following = @user.following
