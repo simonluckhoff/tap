@@ -5,7 +5,7 @@ class FollowsController < ApplicationController
   #   @following = current_user.following
   # end
 
-   # Display users you're following
+  # Display users you're following
   def following
     @following = current_user.following
   end

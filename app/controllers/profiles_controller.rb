@@ -1,6 +1,16 @@
 class ProfilesController < ApplicationController
   before_action :authenticate_user!
 
+  def following
+    @user = User.find(params[:id])
+    @following = @user.following
+  end
+
+  def followers
+    @user = User.find(params[:id])
+    @followers = @user.followers
+  end
+
   def show
     @user = User.find(params[:id])
     @posts = @user.posts.includes(:user).order(created_at: :desc) # Load user's posts
