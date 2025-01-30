@@ -1,0 +1,29 @@
+<h1>Your Chats</h1>
+<p>Welcome to your chat dashboard. Here you can see all your active conversations.</p>
+
+<ul>
+  <% @chats.each do |chat| %>
+    <% other_user = chat.sender == current_user ? chat.recipient : chat.sender %>
+    <li>
+      <%= link_to other_user.username, chat_path(chat) %>
+    </li>
+  <% end %>
+</ul>
+
+<h2>Start a New Conversation</h2>
+<%= simple_form_for @chat, url: chats_path, method: :post do |form| %>
+  <div>
+  <%= form.input :recipient_id,
+    collection: @users.map { |user| [user.username, user.id] },
+    prompt: "Choose a user",
+    label: "Select a User" %>
+  </div>
+
+  <div>
+    <%= text_area_tag :message_content, nil, placeholder: "Type your message here", rows: 3 %>
+  </div>
+
+  <div>
+    <%= form.button :submit, "Start Chat & Send Message", class: "send-button" %>
+  </div>
+<% end %>
