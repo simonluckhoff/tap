@@ -1,6 +1,5 @@
 .navbar-lewagon {
   justify-content: space-between;
-  background: white;
 }
 
 .navbar-lewagon .navbar-collapse {
@@ -8,5 +7,85 @@
 }
 
 .navbar-lewagon .navbar-brand img {
-  width: 40px;
+  width: 60px;
+}
+
+.navbar-image{
+  display: flex;
+  justify-content: left;
+}
+
+.tapthat{
+  color: white;
+  font-weight: bold;
+  padding-left: 25px;
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: 100%;
+  padding-top: 20px;
+  color: white;
+  background-color: #022F56;
+  box-shadow: 0 0 25px rgba(31, 62, 96, 0.9);
+}
+
+.navbar-align{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.list-items{
+  list-style: none;
+  padding-top: 15px;
+  transition: transform 0.3s ease;
+}
+
+.list-items-text{
+  text-decoration: none;
+  color: white;
+}
+
+.list-items:hover {
+  transform: scale(1.1);
+}
+
+li{
+  list-style: none;
+}
+
+.list{
+  padding-top: 10px;
+  margin: 0;
+}
+
+
+
+@media (max-width: 430px) {
+  .navbar {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    color: white;
+    background-color: #022F56;
+    box-shadow: 5 5 20px rgba(184, 209, 205, 0.8);
+    z-index: 1000;
+  }
+
+  .navbar-align{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    padding-right: 25px;
+  }
+
+  .list{
+    display: none;
+  }
 }

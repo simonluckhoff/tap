@@ -32,6 +32,7 @@
         <% end %>
 
         <%= button_to "Start Chat", create_chat_path(recipient_id: @user.id), method: :post, class: "btn btn-primary" %>
+        <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "btn btn-outline-danger ms-2" %>
 
       </div>
 

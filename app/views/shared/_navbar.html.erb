@@ -1,12 +1,10 @@
 <div class="navbar">
   <div class="navbar-align">
     <div class="links">
-      <!-- Home Button (TapThat) -->
-      <div class="tap-and-list">
-        <%= link_to root_path, class: "navbar-brand" do %>
-          <span class="tapthat">TapThat</span>
-        <% end %>
-      </div>
+     
+      <%= link_to root_path, class: "navbar-brand" do %>
+        <span class="tapthat">TapThat</span>
+      <% end %>
 
       <% if user_signed_in? %>
         <div class="list">
@@ -18,19 +16,22 @@
           </ul>
         </div>
       <% end %>
+
     </div>
 
     <!-- Profile Image Link (if signed in) -->
-    <div class="navbar-image">
-      <% if user_signed_in? %>
-        <ul class="">
-          <li class="nav-item">
-            <%= link_to user_path(current_user), class: "nav-link" do %>
-              <%= image_tag current_user.profile_image_url, class: "rounded-circle", alt: "Profile Image", size: "30x30" %>
-            <% end %>
-          </li>
-        </ul>
-      <% end %>
-    </div>
+    <% if user_signed_in? %>
+      <div class="navbar-image">
+        <%= link_to user_path(current_user), class: "nav-link" do %>
+          <%= image_tag(
+            current_user.profile_image_url || asset_path('default_profile_image.png'),
+            class: "rounded-circle",
+            alt: "Profile Image",
+            size: "30x30"
+          ) %>
+        <% end %>
+      </div>
+    <% end %>
+
   </div>
 </div>

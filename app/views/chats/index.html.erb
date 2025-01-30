@@ -10,15 +10,20 @@
   <% end %>
 </ul>
 
-<!--<h2>Start a New Conversation</h2>-->
-<%#= simple_form_for @chat, url: chat_messages_path(@chat), method: :post do |form| %>
-<!--  <div>-->
-    <%#= form.input :recipient_id, collection: @users, label_method: :username, value_method: :id, prompt: "Choose a user", label: "Select a User" %>
-<!--  </div>
+<h2>Start a New Conversation</h2>
+<%= simple_form_for @chat, url: chats_path, method: :post do |form| %>
   <div>
-    <%#= form.input :message_body, as: :text, placeholder: "Type your message here", input_html: { rows: 3 }, label: "Your Message" %>-->
-<!--  </div>
+  <%= form.input :recipient_id,
+    collection: @users.map { |user| [user.username, user.id] },
+    prompt: "Choose a user",
+    label: "Select a User" %>
+  </div>
+
   <div>
-    <%#= form.button :submit, "Send Message", class: "send-button" %>-->
-<!--  </div>-->
-<%# end %>
+    <%= text_area_tag :message_content, nil, placeholder: "Type your message here", rows: 3 %>
+  </div>
+
+  <div>
+    <%= form.button :submit, "Start Chat & Send Message", class: "send-button" %>
+  </div>
+<% end %>
