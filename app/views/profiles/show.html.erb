@@ -12,13 +12,14 @@
     </div>
 
     <!-- Profile Info Column -->
-    <div class="col-12 col-md-8 mt-3">
+    <div class="col-12 col-md-8 mt-3" data-controller="follow" data-user-id="<%= @user.id %>">
       <!-- Username and Edit Profile Button Row -->
       <div class="d-flex align-items-center mb-3">
         <% if current_user == @user %>
           <%= link_to 'Edit Profile', edit_profile_path(@user), class: 'btn btn-outline-secondary px-4' %>
         <% else %>
-          <div id="follow-unfollow-container" data-controller="follow" data-user-id="<%= @user.id %>">
+        <!-- follow and unfollow -->
+          <div id="follow-unfollow-container">
             <% if current_user.following.include?(@user) %>
               <button class="btn btn-outline-dark px-4" data-action="click->follow#unfollow" data-follow-target="button">
                 Following
@@ -41,13 +42,15 @@
         <div class="me-4">
           <strong><%= @user.posts.count %></strong> posts
         </div>
+        <!-- followers -->
         <div class="me-4">
-          <%= link_to followers_follows_path, class: "text-decoration-none" do %>
-          <strong><%= @user.followers.count %></strong> followers
+          <%= link_to followers_profile_path(@user), class: "text-decoration-none" do %>
+          <strong data-follow-target="county"><%= @user.followers.count %></strong> followers
           <% end %>
         </div>
+        <!-- followering -->
         <div class="me-4">
-          <%= link_to following_follows_path, class: "text-decoration-none" do %>
+          <%= link_to following_profile_path(@user), class: "text-decoration-none" do %>
             <strong><%= @user.following.count %></strong> following
           <% end %>
         </div>
@@ -71,7 +74,7 @@
             <% @user.interests.each do |interest| %>
               <%= link_to interest_path(interest), class: "text-decoration-none" do %>
                 <span class="badge bg-light text-dark border">
-                  <%= interest.name %>
+                  <%= interest.title %>
                 </span>
               <% end %>
             <% end %>
