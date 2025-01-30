@@ -6,6 +6,14 @@ class User < ApplicationRecord
 
   has_one_attached :photo
 
+  def profile_image_url
+    if photo.attached?
+      Rails.application.routes.url_helpers.rails_blob_path(photo, only_path: true)
+    else
+      '/assets/default_image.png'
+    end
+  end
+
   # Posts associations
   has_many :posts, dependent: :destroy
 

@@ -1,7 +1,36 @@
-<div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
-  <div class="container-fluid">
-    <%= link_to "#", class: "navbar-brand" do %>
-      <%= image_tag "https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/logo.png" %>
+<div class="navbar">
+  <div class="navbar-align">
+    <div class="links">
+
+      <%= link_to root_path, class: "navbar-brand" do %>
+        <span class="tapthat">TapThat</span>
+      <% end %>
+
+      <% if user_signed_in? %>
+        <div class="list">
+          <ul>
+            <li class="list-items">Search</li>
+            <li class="list-items"><%= link_to 'Explore', interests_path, class: "list-items-text" %></li>
+            <li class="list-items"><%= link_to 'Inbox', chats_path, class: "list-items-text" %></li>
+            <li class="list-items"><%= link_to 'New Post', new_post_path, class: "list-items-text" %></li>
+          </ul>
+        </div>
+      <% end %>
+
+    </div>
+
+    <!-- Profile Image Link (if signed in) -->
+    <% if user_signed_in? %>
+      <div class="navbar-image">
+        <%= link_to user_path(current_user), class: "nav-link" do %>
+          <%= image_tag(
+            current_user.profile_image_url || asset_path('default_profile_image.png'),
+            class: "rounded-circle",
+            alt: "Profile Image",
+            size: "30x30"
+          ) %>
+        <% end %>
+      </div>
     <% end %>
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

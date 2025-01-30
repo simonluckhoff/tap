@@ -2,7 +2,12 @@ Rails.application.routes.draw do
   devise_for :users
   root to: "posts#index"
 
-  resources :profiles, only: [:show, :index, :edit, :update]
+  resources :profiles, only: [:show, :edit, :update, :index] do
+    member do
+      get 'following'
+      get 'followers'
+    end
+  end
 
    # RESTful resources
    resources :posts do
@@ -18,9 +23,11 @@ Rails.application.routes.draw do
     # end
   end
 
-  resources :conversations, only: [:index, :show, :create] do
+  resources :chats, only: [:index, :show, :create] do
     resources :messages, only: [:create]
   end
+
+  post "chats/create", to: 'chats#create', as: :create_chat
 
   resources :user_interests, only: [:create, :destroy]
 
@@ -30,11 +37,11 @@ Rails.application.routes.draw do
       post 'follow'
       delete 'unfollow'
     end
-
-    # collection do
-    #   get 'feed'  # For showing the user's personalized feed
-    # end
   end
+
+  # collection do
+  #   get 'feed'  # For showing the user's personalized feed
+  # end
 
   resources :follows, only: [:index]
 

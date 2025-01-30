@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["button"]
+  static targets = ["button", "county"]
 
   connect() {
     // Initial setup can go here if needed
@@ -15,6 +15,7 @@ export default class extends Controller {
     this.performRequest(url, "POST")
       .then(() => {
         this.updateButtonToFollowing();
+        this.updateCount();
       })
       .catch((error) => {
         console.error("Error during Follow:", error);
@@ -29,10 +30,23 @@ export default class extends Controller {
     this.performRequest(url, "DELETE")
       .then(() => {
         this.updateButtonToFollow();
+        this.minusCount();
       })
       .catch((error) => {
         console.error("Error during Unfollow:", error);
       });
+  }
+
+  updateCount() {
+    const count = this.countyTarget;
+    count.textContent = parseInt(count.textContent) + 1;
+    // parseInt = converts string to integer to + 1
+  }
+
+  minusCount() {
+    const count = this.countyTarget;
+    count.textContent = parseInt(count.textContent) - 1;
+    // parseInt = converts string to integer to + 1
   }
 
   updateButtonToFollowing() {
