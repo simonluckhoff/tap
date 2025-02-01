@@ -7,9 +7,34 @@
       <% end %>
 
       <% if user_signed_in? %>
-        <div class="list">
+        <div class="list nav dropdown">
           <ul>
-            <li class="list-items">Search</li>
+            <li class="list-items dropdown-item"><a href="#">Search</a>
+              <ul class="dropdown-content">
+                <div class="row justify-content-center">
+                  <% if user_signed_in? %>
+
+                  <div class="col-sm-50 my-8">
+                    <%= form_with url: profiles_path, method: :get, class: "search-form" do %>
+                      <div class="input-group">
+
+                        <%= text_field_tag :query,
+                          params[:query],
+                          class: "form-control search-input search-height",
+                          placeholder: "type a name"
+                        %>
+
+                        <div class="input-group-append search-button submit">
+                          <%= submit_tag "Search", name: "", class: "btn btn-primary search-btn submit" %>
+                        </div>
+
+                      </div>
+                    <% end %>
+                  </div>
+                  <% end %>
+                </div>
+              </ul>
+            </li>
             <li class="list-items"><%= link_to 'Explore', interests_path, class: "list-items-text" %></li>
             <li class="list-items"><%= link_to 'Inbox', chats_path, class: "list-items-text" %></li>
             <li class="list-items"><%= link_to 'New Post', new_post_path, class: "list-items-text" %></li>
@@ -22,7 +47,7 @@
     <!-- Profile Image Link (if signed in) -->
     <% if user_signed_in? %>
       <div class="navbar-image">
-        <%= link_to user_path(current_user), class: "nav-link" do %>
+        <%= link_to profile_path(current_user), class: "nav-link" do %>
           <%= image_tag(
             current_user.profile_image_url || asset_path('default_profile_image.png'),
             class: "rounded-circle",
@@ -37,28 +62,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
      <!-- search-->
-        <div class="row justify-content-center">
-        <% if user_signed_in? %>
 
-        <div class="col-sm-50 my-8">
-          <%= form_with url: profiles_path, method: :get, class: "search-form" do %>
-            <div class="input-group">
-
-              <%= text_field_tag :query,
-                params[:query],
-                class: "form-control search-input search-height",
-                placeholder: "type a name"
-              %>
-
-              <div class="input-group-append search-button submit">
-                <%= submit_tag "Search", name: "", class: "btn btn-primary search-btn submit" %>
-              </div>
-
-            </div>
-          <% end %>
-        </div>
-        <% end %>
-      </div>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto">

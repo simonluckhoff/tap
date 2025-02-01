@@ -1,0 +1,19 @@
+.shift-250{
+  margin-left: 350px;
+}
+
+.shift-padding{
+  padding-left: 100px;
+  padding-right: 100px;
+  padding-top: 50px;
+}
+
+@media (max-width: 430px) {
+  .shift-250{
+    margin-left: 0;
+  }
+
+  .shift-padding{
+    padding: 0;
+  }
+}
