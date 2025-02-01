@@ -1,12 +1,12 @@
 <div class="shift-250 pt-2">
 <div class="container">
-  <div class="flexing-header">
+<!--  <div class="flexing-header">
     <div class="text-center mb-4">
-      <%= link_to 'New Post', new_post_path, class: 'btn btn-primary' %>
-    </div>
-  </div>
+      <%#= link_to 'New Post', new_post_path, class: 'btn btn-primary' %>-->
+<!--    </div>
+  </div>-->
 
-  <div class="row justify-content-center single">
+  <div class="row justify-content-center single mt-3">
     <% @posts.each do |post| %>
       <div class="col-md-6 col-lg-4 mb-4 wide">
         <div class="card shadow-sm bg-light">
@@ -74,11 +74,12 @@
           </div>
 
             <p class="card-text text-muted mb-2">
-              <%= post.content %><br>
-              <%= post.interests.map { |interest| "##{interest.title}" }.join(", ") %><br>  <!-- Show all interests -->
-              <!--Posted by <strong><%#= link_to post.user.username, profile_path(post.user) %></strong>-->
-              Posted by <strong><%= link_to "@#{post.user.username}", profile_path(post.user) %></strong>
-              on <%= post.created_at.strftime("%B %d, %Y") %>
+              <div class="posted">
+                <strong><%= link_to "@#{post.user.username}", profile_path(post.user) %></strong>
+                <%= post.content %><br>
+              </div>
+              <div class="posted-by"><%= post.interests.map { |interest| "##{interest.title}" }.join(", ") %></div>
+              <div class="posted-by"><%= post.created_at.strftime("%B %d, %Y") %></div>
             </p>
 
 

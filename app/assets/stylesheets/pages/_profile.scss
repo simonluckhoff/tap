@@ -1,0 +1,78 @@
+.header{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.fade-bg{
+  background-image: linear-gradient(185deg, #f1daaa 10%, #fff8ea 80%);
+  padding-top: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 50px;
+}
+
+.profile-img{
+  margin-right: 90px;
+  width: 200px;
+  height: 200px;
+}
+
+.profile-follow{
+  display: flex;
+}
+
+.profile-name{
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+h4{
+  margin: 0;
+}
+
+.p-smaller{
+  font-size: 16px;
+}
+
+.p-margin{
+  margin-bottom: 6px;
+}
+
+.p-faded{
+  opacity: 60%;
+}
+.blue-bkg{
+  background-color: #022F56;
+}
+
+.card-boddy-padding{
+  padding: 0;
+}
+
+.redoing-padding{
+  padding: 2px;
+}
+
+.profile-info-colu{
+  font-size: 10px;
+}
+
+@media (max-width: 430px) {
+  .fade-bg{
+    padding-top: 10px;
+    padding-bottom: 20px;
+  }
+
+  .profile-img{
+    margin-right: 5px;
+    width: 150px;
+    height: 150px;
+  }
+  .div-two{
+    flex-shrink: 1;
+  }
+}
