@@ -9,6 +9,7 @@ class ProfilesController < ApplicationController
       @users = User.all
     end
   end
+  
   def following
     @user = User.find(params[:id])
     @following = @user.following

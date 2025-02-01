@@ -1,17 +1,9 @@
 <h1>Edit Profile</h1>
-<%= form_for @user, url: profile_path(@user) do |f| %>
-  <%= f.label :first_name %>
-  <%= f.text_field :first_name %>
-
-  <%= f.label :last_name %>
-  <%= f.text_field :last_name %>
-
-  <%= f.label :username %>
-  <%= f.text_field :username %>
-
-  <%= f.label :bio %>
-  <%= f.text_area :bio %>
-
-  <%= f.submit 'Update Profile', class: 'btn btn-primary' %>
+<%= simple_form_for @user, url: profile_path(@user) do |f| %>
+  <%= f.input :first_name %>
+  <%= f.input :last_name %>
+  <%= f.input :username %>
+  <%= f.input :bio %>
+  <%= f.button :submit, 'Update Profile', class: 'btn btn-primary' %>
 <% end %>
 <%= link_to 'Back to Profile', profile_path(@user), class: 'btn btn-secondary' %>

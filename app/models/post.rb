@@ -1,6 +1,7 @@
 class Post < ApplicationRecord
   belongs_to :user
   has_one_attached :photo
+  after_commit :process_photo, on: :create
   # Posts associations
   # has_many :posts, dependent: :destroy
 
@@ -30,4 +31,10 @@ class Post < ApplicationRecord
   has_many :interests, through: :post_interests
 
   accepts_nested_attributes_for :post_interests
+
+  private
+
+  def process_photo
+    PhotoProcessingJob.perform_later(self.id) if photo.attached?
+  end
 end
