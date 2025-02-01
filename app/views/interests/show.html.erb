@@ -1,75 +1,140 @@
 <div class="shift-250">
-<div class="container mt-4">
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <h2><%= @interest.title %></h2>
-    <div>
-      <% if current_user.interests.include?(@interest) %>
-        <%= button_to "Unfollow", unfollow_interest_path(@interest),
-              method: :delete,
-              class: "btn btn-outline-danger" %>
-      <% else %>
-        <%= button_to "Follow", follow_interest_path(@interest),
-              method: :post,
-              class: "btn btn-primary" %>
-      <% end %>
-    </div>
-  </div>
-
-  <div class="row">
-    <% @posts.each do |post| %>
-      <div class="col-md-4 mb-4">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">
-              <%= link_to post.user.username, user_path(post.user), class: "text-decoration-none" %>
-            </h5>
-            <p class="card-text"><%= post.content %></p>
-            <p class="card-text">
-              <small class="text-muted">
-                Posted <%= time_ago_in_words(post.created_at) %> ago
-              </small>
-            </p>
-           <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-  View Post
-</button>
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Post</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-      <h5 class="card-title">
-        <%= link_to post.user.username, user_path(post.user), class: "text-decoration-none" %>
-      </h5>
-      <%= cl_image_tag post.photo.key, class: "img-fluid" if post.photo.attached? %>
-      <p class="card-text"><%= post.content %></p>
-      <p class="card-text">
-        <small class="text-muted">
-          Posted <%= time_ago_in_words(post.created_at) %> ago
-        </small>
-      </p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+  <div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2><%= @interest.title %></h2>
+      <div>
+        <% if current_user.interests.include?(@interest) %>
+          <%= button_to "Unfollow", unfollow_interest_path(@interest),
+                method: :delete, class: "btn btn-outline-danger" %>
+        <% else %>
+          <%= button_to "Follow", follow_interest_path(@interest),
+                method: :post, class: "btn btn-primary" %>
+        <% end %>
       </div>
     </div>
-  </div>
-</div>
+
+    <div class="row">
+      <% @interest.posts.each do |post| %>  <%# ✅ Looping only posts belonging to the current interest %>
+        <div class="col-md-4 mb-4">
+          <div class="card">
+            <div class="card-body">
+              <% if post.photo.attached? %>
+                <%= cl_image_tag post.photo.key, height: 450, width: 300, class: "constrain-image" %>
+              <% else %>
+                <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 300px;">
+                  <p class="text-muted">No media available unfortunately my guy</p>
+                </div>
+              <% end %>
+
+              <h5 class="card-title">
+                <%= link_to post.user.username, user_path(post.user), class: "text-decoration-none" %>
+              </h5>
+
+              <p class="card-text"><%= post.content %></p>
+              <p class="card-text">
+                <small class="text-muted">
+                  Posted <%= time_ago_in_words(post.created_at) %> ago
+                </small>
+              </p>
+
+              <!-- Button trigger modal -->
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-<%= post.id %>">
+                View Post
+              </button>
+
+              <!-- Modal -->
+              <div class="modal fade" id="modal-<%= post.id %>" tabindex="-1" aria-labelledby="modalLabel-<%= post.id %>" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="modalLabel-<%= post.id %>">Post</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <h5 class="card-title">
+                        <%= link_to post.user.username, user_path(post.user), class: "text-decoration-none" %>
+                      </h5>
+                      <%= cl_image_tag post.photo.key, class: "img-fluid" if post.photo.attached? %>
+                       <div class="like-comment-share">
+
+            <div class="d-flex justify-content-left align-items-center mb-2 gap-3">
+              <!-- Like Icon -->
+              <div id="<%= dom_id(post, :like) %>" data-controller="like" data-like-post-id-value="<%= post.id %>" data-like-liked-value="<%= user_signed_in? && current_user.likes.exists?(post: post) %>">
+              <i class="fa fa-heart <%= user_signed_in? && current_user.likes.exists?(post: post) ? 'liked text-danger' : '' %>" data-action="click->like#toggleLike" style="cursor: pointer;"></i>
+            </div>
+
+            <!-- Comment Icon -->
+            <a href="#" class="text-dark" data-bs-toggle="collapse" data-bs-target="#comments-<%= post.id %>" title="Comments">
+              <i class="fa fa-comment" style="font-size: 1.2rem;"></i>
+            </a>
+
+            <!-- Share Icon -->
+            <a href="#" class="text-dark" data-bs-toggle="collapse" data-bs-target="#share-<%= post.id %>" title="Share">
+              <i class="fa fa-share" style="font-size: 1.2rem;"></i>
+            </a>
+            </div>
+
+
+            <div class="collapse mt-3" id="comments-<%= post.id %>">
+              <%= form_with(model: [post, Comment.new], local: false) do |form| %>
+                <div class="input-group mb-2">
+                  <%= form.text_field :content, placeholder: "Write a comment...", class: "form-control" %>
+                  <%= form.submit "Post", class: "btn btn-primary" %>
+                </div>
+              <% end %>
+
+              <% post.comments.each do |comment| %>
+                <div class="mb-2">
+                  <strong><%= comment.user.username %>:</strong>
+                  <%= comment.content %>
+                  <small class="text-muted d-block"><%= time_ago_in_words(comment.created_at) %> ago</small>
+                </div>
+              <% end %>
+            </div>
+
+            <!-- Share Section -->
+            <div class="collapse" id="share-<%= post.id %>">
+              <div class="d-flex justify-content-around">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=<%= post_url(post) %>" target="_blank" class="btn btn-sm btn-primary">
+                  <i class="fab fa-facebook-f"></i> Facebook
+                </a>
+
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url=<%= post_url(post) %>" target="_blank" class="btn btn-sm btn-secondary">
+                  <i class="fab fa-linkedin-in"></i> LinkedIn
+                </a>
+                <a href="https://wa.me/?text=<%= CGI.escape(post_url(post)) %>" target="_blank" class="btn btn-sm btn-success">
+                  <i class="fab fa-whatsapp"></i> WhatsApp
+                </a>
+              </div>
+            </div>
           </div>
-        </div>
+                      <p class="card-text"><%= post.content %></p>
+                      <p class="card-text">
+                        <small class="text-muted">
+                          Posted <%= time_ago_in_words(post.created_at) %> ago
+                        </small>
+                      </p>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div> <%# End of card-body %>
+          </div> <%# End of card %>
+        </div> <%# End of col-md-4 %>
+      <% end %> <%# ✅ Correctly closing the loop here %>
+
+    </div> <%# End of row %>
+
+    <% if @posts.empty? %>
+      <div class="text-center py-5">
+        <p class="text-muted">No posts in this interest yet.</p>
       </div>
     <% end %>
-  </div>
 
-  <% if @posts.empty? %>
-    <div class="text-center py-5">
-      <p class="text-muted">No posts in this interest yet.</p>
-    </div>
-  <% end %>
-</div>
-</div>
+  </div> <%# End of container %>
+</div> <%# End of shift-250 %>
+5

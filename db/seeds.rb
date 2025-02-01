@@ -51,7 +51,7 @@ users = []
   )
    # Attach a random image to the user
    user.photo.attach(
-    io: File.open(Rails.root.join("app/assets/images/user#{rand(1..5)}.jpg")),
+    io: File.open(Rails.root.join("app/assets/images/user#{rand(1..15)}.jpg")),
     filename: "user.jpg",
     content_type: "image/jpeg"
   )
@@ -78,7 +78,7 @@ users.each do |user|
     )
       # Attach a random image to the post
       post.photo.attach(
-        io: File.open(Rails.root.join("app/assets/images/user#{rand(1..5)}.jpg")),
+        io: File.open(Rails.root.join("app/assets/images/user#{rand(1..15)}.jpg")),
         filename: "post.jpg",
         content_type: "image/jpeg"
       )
