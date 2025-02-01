@@ -48,12 +48,9 @@
     <% if user_signed_in? %>
       <div class="navbar-image">
         <%= link_to profile_path(current_user), class: "nav-link" do %>
-          <%= image_tag(
-            current_user.profile_image_url || asset_path('default_profile_image.png'),
-            class: "rounded-circle",
-            alt: "Profile Image",
-            size: "30x30"
-          ) %>
+        <% if current_user.photo.attached? %>
+        <%= image_tag current_user.photo, class: "rounded-circle", alt: "Profile Image", size: "30x30" %>
+        <% end %>
         <% end %>
       </div>
     <% end %>

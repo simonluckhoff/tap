@@ -4,4 +4,9 @@ class ApplicationJob < ActiveJob::Base
 
   # Most jobs are safe to ignore if the underlying records are no longer available
   # discard_on ActiveJob::DeserializationError
+  def perform
+    puts "I'm starting the fake job"
+    sleep 3
+    puts "OK I'm done now"
+  end
 end

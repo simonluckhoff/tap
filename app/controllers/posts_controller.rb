@@ -18,6 +18,7 @@ class PostsController < ApplicationController
     @post = Post.new(post_params)
     @post.user = current_user # Associate the post with the current user
     if @post.save
+      PhotoProcessingJob.perform_later(@post.id) if @post.photo.attached?
       redirect_to posts_path, notice: 'Post was successfully created.'
     else
       render :new
