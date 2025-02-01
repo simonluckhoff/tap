@@ -1,4 +1,4 @@
-<div class="container-fluid mt-4">
+<div class=" mt-4 shift-250">
   <!-- Profile Header -->
   <div class="row mb-5">
     <!-- Profile Picture Column -->
@@ -87,14 +87,15 @@
   </div>
 
   <!-- Posts Grid -->
-  <div class="row border-top pt-4">
+  <div class="container">
+  <div class="row border-top pt-4 justify-content-center">
     <% if @user.posts.any? %>
       <% @user.posts.each do |post| %>
         <div class="col-12 col-md-4 mb-4">
           <div class="card h-100">
             <div class="bg-light d-flex align-items-center justify-content-center" style="height: 300px; position: relative;">
              <% if post.photo.attached? %>
-            <%= cl_image_tag post.photo.key, height: 300, width: 400, crop: :fill %>
+            <%= cl_image_tag post.photo.key, height: 300, width: 400, crop: :fill, class: "constrain-image"  %>
           <% else %>
             <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 300px;">
               <p class="text-muted">No media available unfortunately my guy</p>
@@ -123,4 +124,5 @@
       </div>
     <% end %>
   </div>
+</div>
 </div>

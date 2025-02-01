@@ -1,0 +1,47 @@
+ul {
+  list-style-type: none;
+}
+
+nav ul {
+  display: flex;
+}
+
+nav ul li {
+  position: relative;
+}
+
+/* Styling the links */
+nav ul li a {
+  text-decoration: none;
+  // padding: 15px;
+  display: block;
+}
+
+.list {
+  a{
+    color: white;
+    text-decoration: none;
+  }
+}
+
+/* Dropdown container */
+.dropdown-item .dropdown-content {
+  display: none;
+  // position: absolute;
+  min-width: 200px;
+  padding-top: 10px;
+  margin: 0;
+}
+
+/* Dropdown menu items */
+.dropdown-item:hover .dropdown-content {
+  display: block;
+  padding-bottom: 10px;
+  box-shadow: 0 0 30px 10px rgba(0, 255, 255, 0.9); /* Stronger glow on hover */
+}
+
+/* Styling dropdown items */
+.dropdown-content li a {
+  // padding: 10px;
+  border-top: 1px solid #444;
+}
