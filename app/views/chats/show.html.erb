@@ -1,3 +1,4 @@
+<div class="shift-250">
 <h1>Chat with <%= @chat.recipient == current_user ? @chat.sender.username : @chat.recipient.username %></h1>
 
 <div id="messages">
@@ -13,3 +14,4 @@
   <%= form.button :submit, "Send" %>
   <%= link_to 'Back to Chats', chats_path, class: 'back-button' %>
 <% end %>
+</div>

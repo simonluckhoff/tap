@@ -1,0 +1,28 @@
+.flexing-header{
+  display: flex;
+  justify-content: right;
+  padding-top: 15px;
+  // padding-bottom: 15px;
+  padding-left: 5px;
+}
+
+.flexing-header-post{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 350px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+
+@media (max-width: 430px) {
+  .flexing-header-post{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 35px;
+    margin-top: 15px;
+    margin-bottom: 5px;
+  }
+}
