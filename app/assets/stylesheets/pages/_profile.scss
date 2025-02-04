@@ -1,0 +1,152 @@
+.header{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.fade-bg{
+  background-image: linear-gradient(185deg, #f1daaa 10%, #fff8ea 80%);
+  padding-top: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 50px;
+}
+
+.profile-image{
+  border-radius: 50%;
+  height: 150px;
+  width: 150px;
+  object-fit: cover;
+}
+
+.div-one{
+  margin-right: 30px;
+}
+
+.profile-img{
+  margin-right: 90px;
+  width: 200px;
+  height: 200px;
+}
+
+.profile-follow{
+  display: flex;
+}
+
+.profile-name{
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+h4{
+  margin: 0;
+}
+
+.p-smaller{
+  font-size: 16px;
+}
+
+.p-margin{
+  margin-bottom: 6px;
+}
+
+.p-faded{
+  opacity: 60%;
+}
+.blue-bkg{
+  background-color: #022F56;
+}
+
+.card-boddy-padding{
+  padding: 0;
+}
+
+.redoing-padding{
+  padding: 2px;
+}
+
+.profile-info-colu{
+  font-size: 10px;
+}
+
+.info{
+  background-color: #ffffff;
+  padding: 10px;
+}
+
+.info .date{
+  font-size: 12px;
+  font-style: italic;
+  opacity: 50%;
+}
+
+.username{
+  display: flex;
+  gap: 5px;
+  }
+
+@media (max-width: 430px) {
+  .fade-bg{
+    padding-top: 10px;
+    padding-bottom: 20px;
+  }
+
+  .profile-img{
+    margin-right: 5px;
+    width: 150px;
+    height: 150px;
+  }
+  .div-two{
+    flex-shrink: 1;
+  }
+
+  .profile-name-follow{
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+  }
+
+  .profile-name{
+    display: flex;
+    justify-content: left;
+    width: 100%;
+    padding-bottom: 10px;
+  }
+
+  .container-height{
+    height: 100%;
+  }
+
+  .inbetween{
+    padding-bottom: 20px;
+    gap: 20px;
+  }
+
+  .post-follow{
+    gap: 6px;
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .profile-name-follow-unfollow{
+    display: flex;
+    flex-direction: row;
+    // justify-content: space-between;
+  }
+}
+
+@media (min-width: 600px){
+  .info{
+    display: none;
+  }
+
+  .post-follow{
+    font-size: 17px;
+    display: flex;
+    justify-content: space-between;
+  }
+}
