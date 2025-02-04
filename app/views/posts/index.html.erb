@@ -38,7 +38,7 @@
             </div>
 
 
-            <div class="collapse mt-3" id="comments-<%= post.id %>">
+            <div class="collapse mt-3 showy" id="comments-<%= post.id %>">
               <%= form_with(model: [post, Comment.new], local: false) do |form| %>
                 <div class="input-group mb-2">
                   <%= form.text_field :content, placeholder: "Write a comment...", class: "form-control" %>

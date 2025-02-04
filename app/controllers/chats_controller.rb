@@ -15,13 +15,14 @@ class ChatsController < ApplicationController
   end
 
   def create
-    recipient = User.find_by(id: params[:chat][:recipient_id])
+    recipient_id = params.dig(:chat, :recipient_id)
+    recipient = User.find_by(id: recipient_id)
 
     # Ensure the recipient exists
-    if recipient.nil?
-      flash[:alert] = "User not found."
-      redirect_to chats_path and return
-    end
+    # if recipient.nil?
+    #   flash[:alert] = "User not found."
+    #   redirect_to chats_path and return
+    # end
 
     # Create or find an existing chat between current_user and the recipient
     @chat = Chat.find_or_create_by(sender: current_user, recipient: recipient)
