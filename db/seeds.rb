@@ -45,22 +45,37 @@ end
 # Create users
 puts "Creating users..."
 users = []
-2.times do
-  user = User.new(
-    email: Faker::Internet.unique.email,
-    password: 'password123',
-    username: Faker::Internet.unique.username(specifier: 5..10),
-    bio: Faker::Quote.jack_handey
+
+user = User.new(
+  email: "mattdenton94@gmail.com",
+  password: "Tasneem@10",
+  username: "MattDenton94",
+  bio: "Dad, Dog Dad, Hubby and future disruptor. Watch this space!"
   )
-   # Attach a random image to the user
-   user.photo.attach(
-    io: File.open(Rails.root.join("app/assets/images/user#{rand(1..15)}.jpg")),
-    filename: "user.jpg",
+  user.photo.attach(
+    io: File.open(Rails.root.join("path/to/your/image.jpg")),
+    filename: "matt_profile_pic.jpg",
     content_type: "image/jpeg"
   )
   user.save
   users << user
-end
+
+user = User.new(
+  email: "simonluckhoff@gmail.com",
+  password: "kaptein",
+  username: "sims7878",
+  bio: "Car photographer and wannabe coder!"
+  )
+
+  user.photo.attach(
+    io: File.open(Rails.root.join("path/to/your/image.jpg")),
+    filename: "simon_profile_pic.jpg",
+    content_type: "image/jpeg"
+  )
+
+  user.save
+  users << user
+
 
 # # Create an admin user
 # admin = User.create!(
@@ -76,8 +91,8 @@ users.each do |user|
   3.times do |i|
     puts "creating a user"
     post = Post.new(
-      user: user,
-       content: "#{Faker::Quote.jack_handey} ##{interests.sample.title}"
+      user: "MattDenton94",
+      content: "I love being a soccer dad! ##{interests.sport}"
     )
       # Attach a random image to the post
       post.photo.attach(
