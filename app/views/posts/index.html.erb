@@ -1,24 +1,23 @@
 <div class="shift-250 pt-2">
 <div class="container">
-<!--  <div class="flexing-header">
-    <div class="text-center mb-4">
-      <%#= link_to 'New Post', new_post_path, class: 'btn btn-primary' %>-->
-<!--    </div>
-  </div>-->
 
-  <div class="row justify-content-center single mt-3">
+  <div class="row justify-content-center single mt-3 rowwy">
     <% @posts.each do |post| %>
-      <div class="col-md-6 col-lg-4 mb-4 wide">
-        <div class="card shadow-sm bg-light">
+      <div class="col-md-6 col-lg-6 mb-4 wide photo-container">
+        <div class="card shadow-sm bg-light photo-container-crop">
           <% if post.photo.attached? %>
-            <%= cl_image_tag post.photo.key, height: 450, width: 300, class: "constrain-image" %>
+            <div class="image-container">
+            <%= cl_image_tag post.photo.key, height: 450, width: 300, class: "constrain-image photo" %>
+            <div class="image-overlay"></div>
+            </div>
           <% else %>
             <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 300px;">
               <p class="text-muted">No media available unfortunately my guy</p>
             </div>
           <% end %>
 
-          <div class="card-body">
+          <div class="card-body overlay">
+          <div class="right-corner">
           <div class="like-comment-share">
 
             <div class="d-flex justify-content-left align-items-center mb-2 gap-3">
@@ -47,7 +46,7 @@
                 </div>
               <% end %>
 
-              <% post.comments.each do |comment| %>
+              <% post.comments.order(created_at: :desc).each do |comment| %>
                 <div class="mb-2">
                   <strong><%= comment.user.username %>:</strong>
                   <%= comment.content %>
@@ -82,7 +81,7 @@
               <div class="posted-by"><%= post.created_at.strftime("%B %d, %Y") %></div>
             </p>
 
-
+</div>
           </div>
         </div>
       </div>
