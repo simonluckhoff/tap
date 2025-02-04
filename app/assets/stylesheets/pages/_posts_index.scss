@@ -52,6 +52,59 @@
   }
 }
 
+// .interest-posts {
+//   display: flex;
+//   justify-content: space-between;
+//   flex-direction: row;
+
+// }
+
+/* Prevent overlap with the sidebar on large screens */
+@media (min-width: 431px) {
+  .content-wrapper {
+    margin-left: 0px; /* Push content to the right of the sidebar */
+    padding-top: 20px;  /* Small spacing from the top */
+  }
+}
+
+/* Prevent overlap with the bottom navbar on small screens */
+@media (max-width: 430px) {
+  .content-wrapper {
+    padding-bottom: 70px; /* Ensures content is not hidden by bottom navbar */
+    padding-top: 10px;
+  }
+}
+
+/* Interest-posts layout - Keep images in a row */
+.interest-posts {
+  display: flex;
+  flex-direction: row;
+  gap: 10px; /* Adds small space between images */
+  overflow-x: auto; /* Allows horizontal scrolling if needed */
+  white-space: nowrap; /* Prevents images from wrapping onto a new line */
+  max-width: 100%;
+  padding-bottom: 10px; /* Prevents images from touching the bottom */
+}
+
+/* Ensure images are next to each other */
+.interest-posts img {
+  height: auto;
+  max-height: 300px; /* Adjust based on your design */
+  width: auto; /* Keeps natural aspect ratio */
+  border-radius: 10px;
+}
+
+/* On small screens, allow horizontal scrolling if needed */
+@media (max-width: 430px) {
+  .interest-posts {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+  }
+
+  .interest-posts img {
+    max-height: 250px; /* Slightly smaller for mobile */
+  }
+}
 /* Container holding the image and the overlay */
 .photo-container {
   position: relative;

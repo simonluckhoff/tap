@@ -11,10 +11,93 @@
             <div class="card-body">
               <h5 class="card-title"><%= interest.title %></h5>
               <p class="card-text"><small><%= pluralize(interest.posts.count, 'post') %></small></p>
-              <%= link_to "View Posts", interest_path(interest), class: "btn btn-primary btn-sm" %>
+              <%#= link_to "View Posts", interest_path(interest), class: "btn btn-primary btn-sm" %>
               <%= button_to "Unfollow", unfollow_interest_path(interest),
                     method: :delete,
                     class: "btn btn-outline-danger btn-sm mt-2" %>
+      <div class="content-wrapper">
+            <div class="interest-posts">
+            <% interest.posts.each do |post| %>
+                <div class="col-md-6 col-lg-4 mb-4 wide">
+        <div class="card shadow-sm bg-light">
+          <% if post.photo.attached? %>
+            <%= cl_image_tag post.photo.key, height: 450, width: 300, class: "constrain-image" %>
+          <% else %>
+            <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 300px;">
+              <p class="text-muted">No media available unfortunately my guy</p>
+            </div>
+          <% end %>
+
+          <div class="card-body">
+          <div class="like-comment-share">
+
+            <div class="d-flex justify-content-left align-items-center mb-2 gap-3">
+              <!-- Like Icon -->
+              <div id="<%= dom_id(post, :like) %>" data-controller="like" data-like-post-id-value="<%= post.id %>" data-like-liked-value="<%= user_signed_in? && current_user.likes.exists?(post: post) %>">
+              <i class="fa fa-heart <%= user_signed_in? && current_user.likes.exists?(post: post) ? 'liked text-danger' : '' %>" data-action="click->like#toggleLike" style="cursor: pointer;"></i>
+            </div>
+
+            <!-- Comment Icon -->
+            <a href="#" class="text-dark" data-bs-toggle="collapse" data-bs-target="#comments-<%= post.id %>" title="Comments">
+              <i class="fa fa-comment" style="font-size: 1.2rem;"></i>
+            </a>
+
+            <!-- Share Icon -->
+            <a href="#" class="text-dark" data-bs-toggle="collapse" data-bs-target="#share-<%= post.id %>" title="Share">
+              <i class="fa fa-share" style="font-size: 1.2rem;"></i>
+            </a>
+            </div>
+
+
+            <div class="collapse mt-3" id="comments-<%= post.id %>">
+              <%= form_with(model: [post, Comment.new], local: false) do |form| %>
+                <div class="input-group mb-2">
+                  <%= form.text_field :content, placeholder: "Write a comment...", class: "form-control" %>
+                  <%= form.submit "Post", class: "btn btn-primary" %>
+                </div>
+              <% end %>
+
+              <% post.comments.each do |comment| %>
+                <div class="mb-2">
+                  <strong><%= comment.user.username %>:</strong>
+                  <%= comment.content %>
+                  <small class="text-muted d-block"><%= time_ago_in_words(comment.created_at) %> ago</small>
+                </div>
+              <% end %>
+            </div>
+
+            <!-- Share Section -->
+            <div class="collapse" id="share-<%= post.id %>">
+              <div class="d-flex justify-content-around">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=<%= post_url(post) %>" target="_blank" class="btn btn-sm btn-primary">
+                  <i class="fab fa-facebook-f"></i> Facebook
+                </a>
+
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url=<%= post_url(post) %>" target="_blank" class="btn btn-sm btn-secondary">
+                  <i class="fab fa-linkedin-in"></i> LinkedIn
+                </a>
+                <a href="https://wa.me/?text=<%= CGI.escape(post_url(post)) %>" target="_blank" class="btn btn-sm btn-success">
+                  <i class="fab fa-whatsapp"></i> WhatsApp
+                </a>
+              </div>
+            </div>
+          </div>
+
+            <p class="card-text text-muted mb-2">
+              <%= post.content %><br>
+              <%= post.interests.map { |interest| "##{interest.title}" }.join(", ") %><br>  <!-- Show all interests -->
+              <!--Posted by <strong><%#= link_to post.user.username, profile_path(post.user) %></strong>-->
+              Posted by <strong><%= link_to "@#{post.user.username}", profile_path(post.user) %></strong>
+              on <%= post.created_at.strftime("%B %d, %Y") %>
+            </p>
+
+
+          </div>
+        </div>
+      </div>
+            <% end %>
+            </div>
+            </div>
             </div>
           </div>
         <% end %>
@@ -33,10 +116,93 @@
               <p class="card-text">
                 <small><%= pluralize(interest.posts.count, 'post') %></small>
               </p>
-              <%= link_to "View Posts", interest_path(interest), class: "btn btn-primary btn-sm" %>
+              <%#= link_to "View Posts", interest_path(interest), class: "btn btn-primary btn-sm" %>
               <%= button_to "Follow", follow_interest_path(interest),
                     method: :post,
                     class: "btn btn-outline-primary btn-sm mt-2" %>
+      <div class="content-wrapper">
+       <div class="interest-posts">
+            <% interest.posts.each do |post| %>
+                <div class="col-md-6 col-lg-4 mb-4 wide">
+        <div class="card shadow-sm bg-light">
+          <% if post.photo.attached? %>
+            <%= cl_image_tag post.photo.key, height: 450, width: 300, class: "constrain-image" %>
+          <% else %>
+            <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 300px;">
+              <p class="text-muted">No media available unfortunately my guy</p>
+            </div>
+          <% end %>
+
+          <div class="card-body">
+          <div class="like-comment-share">
+
+            <div class="d-flex justify-content-left align-items-center mb-2 gap-3">
+              <!-- Like Icon -->
+              <div id="<%= dom_id(post, :like) %>" data-controller="like" data-like-post-id-value="<%= post.id %>" data-like-liked-value="<%= user_signed_in? && current_user.likes.exists?(post: post) %>">
+              <i class="fa fa-heart <%= user_signed_in? && current_user.likes.exists?(post: post) ? 'liked text-danger' : '' %>" data-action="click->like#toggleLike" style="cursor: pointer;"></i>
+            </div>
+
+            <!-- Comment Icon -->
+            <a href="#" class="text-dark" data-bs-toggle="collapse" data-bs-target="#comments-<%= post.id %>" title="Comments">
+              <i class="fa fa-comment" style="font-size: 1.2rem;"></i>
+            </a>
+
+            <!-- Share Icon -->
+            <a href="#" class="text-dark" data-bs-toggle="collapse" data-bs-target="#share-<%= post.id %>" title="Share">
+              <i class="fa fa-share" style="font-size: 1.2rem;"></i>
+            </a>
+            </div>
+
+
+            <div class="collapse mt-3" id="comments-<%= post.id %>">
+              <%= form_with(model: [post, Comment.new], local: false) do |form| %>
+                <div class="input-group mb-2">
+                  <%= form.text_field :content, placeholder: "Write a comment...", class: "form-control" %>
+                  <%= form.submit "Post", class: "btn btn-primary" %>
+                </div>
+              <% end %>
+
+              <% post.comments.each do |comment| %>
+                <div class="mb-2">
+                  <strong><%= comment.user.username %>:</strong>
+                  <%= comment.content %>
+                  <small class="text-muted d-block"><%= time_ago_in_words(comment.created_at) %> ago</small>
+                </div>
+              <% end %>
+            </div>
+
+            <!-- Share Section -->
+            <div class="collapse" id="share-<%= post.id %>">
+              <div class="d-flex justify-content-around">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=<%= post_url(post) %>" target="_blank" class="btn btn-sm btn-primary">
+                  <i class="fab fa-facebook-f"></i> Facebook
+                </a>
+
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url=<%= post_url(post) %>" target="_blank" class="btn btn-sm btn-secondary">
+                  <i class="fab fa-linkedin-in"></i> LinkedIn
+                </a>
+                <a href="https://wa.me/?text=<%= CGI.escape(post_url(post)) %>" target="_blank" class="btn btn-sm btn-success">
+                  <i class="fab fa-whatsapp"></i> WhatsApp
+                </a>
+              </div>
+            </div>
+          </div>
+
+            <p class="card-text text-muted mb-2">
+              <%= post.content %><br>
+              <%= post.interests.map { |interest| "##{interest.title}" }.join(", ") %><br>  <!-- Show all interests -->
+              <!--Posted by <strong><%#= link_to post.user.username, profile_path(post.user) %></strong>-->
+              Posted by <strong><%= link_to "@#{post.user.username}", profile_path(post.user) %></strong>
+              on <%= post.created_at.strftime("%B %d, %Y") %>
+            </p>
+
+
+          </div>
+        </div>
+      </div>
+            <% end %>
+            </div>
+            </div>
             </div>
           </div>
         <% end %>
