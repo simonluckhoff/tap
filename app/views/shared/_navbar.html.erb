@@ -2,93 +2,114 @@
   <div class="navbar-align">
     <div class="links">
 
-      <%= link_to root_path, class: "navbar-brand" do %>
+      <%= link_to root_path, class: "" do %>
         <span class="tapthat">TapThat</span>
       <% end %>
 
       <% if user_signed_in? %>
         <div class="list nav dropdown">
           <ul>
-            <li class="list-items dropdown-item"><a href="#">Search</a>
-              <ul class="dropdown-content">
-                <div class="row justify-content-center">
-                  <% if user_signed_in? %>
-
-                  <div class="col-sm-50 my-8">
-                    <%= form_with url: profiles_path, method: :get, class: "search-form" do %>
-                      <div class="input-group">
-
-                        <%= text_field_tag :query,
-                          params[:query],
-                          class: "form-control search-input search-height",
-                          placeholder: "type a name"
-                        %>
-
-                        <div class="input-group-append search-button submit">
-                          <%= submit_tag "Search", name: "", class: "btn btn-primary search-btn submit" %>
-                        </div>
-
-                      </div>
-                    <% end %>
-                  </div>
-                  <% end %>
-                </div>
-              </ul>
+            <!--<li class="list-items"><%#= image_tag("house-door.svg", height: "20px", width: "20px", class: "inverted") %><%= link_to 'Home', root_path, class: "list-items-text" %></li>-->
+            <li class="list-items">
+              <%= link_to root_path, class: "list-items-link" do %>
+                <%= image_tag("house-door.svg", height: "20px", width: "20px", class: "inverted") %>
+                <span class="list-items-text">Home</span>
+              <% end %>
             </li>
-            <li class="list-items"><%= link_to 'Explore', interests_path, class: "list-items-text" %></li>
-            <li class="list-items"><%= link_to 'Inbox', chats_path, class: "list-items-text" %></li>
-            <li class="list-items"><%= link_to 'New Post', new_post_path, class: "list-items-text" %></li>
+            <!--<li class="list-items dropdown-item"><%#= image_tag("search.svg", height: "20px", width: "20px", class: "inverted") %><%= link_to 'Search', root_path, class: "list-items-text" %></li>-->
+            <!--<li class="list-items"><%#= image_tag("compass.svg", height: "20px", width: "20px", class: "inverted") %><%= link_to 'Explore', interests_path, class: "list-items-text" %></li>-->
+            <li class="list-items">
+              <%= link_to interests_path, class: "list-items-link" do %>
+                <%= image_tag("compass.svg", height: "20px", width: "20px", class: "inverted") %>
+                <span class="list-items-text">Explore</span>
+              <% end %>
+            </li>
+            <!--<li class="list-items"><%#= image_tag("inbox.svg", height: "20px", width: "20px", class: "inverted") %><%= link_to 'Inbox', chats_path, class: "list-items-text" %></li>-->
+            <li class="list-items">
+              <%= link_to chats_path, class: "list-items-link" do %>
+                <%= image_tag("inbox.svg", height: "20px", width: "20px", class: "inverted") %>
+                <span class="list-items-text">Inbox</span>
+              <% end %>
+            </li>
+            <!--<li class="list-items"><%#= image_tag("plus-square.svg", height: "20px", width: "20px", class: "inverted") %><%= link_to 'New Post', new_post_path, class: "list-items-text" %></li>-->
+            <li class="list-items">
+              <%= link_to new_post_path, class: "list-items-link" do %>
+                <%= image_tag("plus-square.svg", height: "20px", width: "20px", class: "inverted") %>
+                <span class="list-items-text">New Post</span>
+              <% end %>
+            </li>
+
+            <li class="list-items">
+              <%= link_to profile_path(current_user), class: "list-items-link" do %>
+                <%= image_tag("person-fill.svg", height: "20px", width: "20px", class: "inverted") %>
+                <span class="list-items-text">Profile</span>
+              <% end %>
+            </li>
+
+
           </ul>
         </div>
       <% end %>
 
+      <!-- Search Bar -->
+        <div class="row justify-content-center search-bar">
+          <% if user_signed_in? %>
+
+          <div class="col-sm-50 my-8 pad">
+            <%= form_with url: profiles_path, method: :get, class: "search-form" do %>
+              <div class="input-group">
+
+                <%= text_field_tag :query,
+                  params[:query],
+                  class: "form-control search-input search-height",
+                  placeholder: "type a name"
+                %>
+
+                <div class="input-group-append search-button submit">
+                  <%= submit_tag "Search", name: "", class: "btn btn-primary search-btn submit" %>
+                </div>
+
+              </div>
+            <% end %>
+          </div>
+          <% end %>
+        </div>
+
+
     </div>
 
     <!-- Profile Image Link (if signed in) -->
-    <% if user_signed_in? %>
-      <div class="navbar-image">
-        <%= link_to profile_path(current_user), class: "nav-link" do %>
-          <%= image_tag(
-            current_user.profile_image_url || asset_path('default_profile_image.png'),
-            class: "rounded-circle",
-            alt: "Profile Image",
-            size: "30x30"
-          ) %>
-        <% end %>
-      </div>
-    <% end %>
 
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+
+<!--    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-     <!-- search-->
-
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto">
-        <% if user_signed_in? %>
-          <li class="nav-item active">
-            <%= link_to "Home", "#", class: "nav-link" %>
-          </li>
+        <%# if user_signed_in? %>-->
+<!--          <li class="nav-item active">-->
+            <%#= link_to "Home", "#", class: "nav-link" %>
+<!--          </li>
           <li class="nav-item">
-            <%= link_to "Messages", "#", class: "nav-link" %>
-          </li>
+            <%#= link_to "Messages", "#", class: "nav-link" %>-->
+<!--          </li>
           <li class="nav-item dropdown">
           <a href="#" class="avatar" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <%= image_tag "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "avatar", alt: "dropdown menu" %>
-          </a>
+            <%#= image_tag "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "avatar", alt: "dropdown menu" %>-->
+<!--          </a>
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-              <%= link_to "Action", "#", class: "dropdown-item" %>
-              <%= link_to "Another action", "#", class: "dropdown-item" %>
-              <%= link_to "Log out", destroy_user_session_path, data: {turbo_method: :delete}, class: "dropdown-item" %>
-            </div>
+              <%#= link_to "Action", "#", class: "dropdown-item" %>-->
+              <%#= link_to "Another action", "#", class: "dropdown-item" %>
+              <%#= link_to "Log out", destroy_user_session_path, data: {turbo_method: :delete}, class: "dropdown-item" %>
+<!--            </div>
           </li>
-        <% else %>
-          <li class="nav-item">
-            <%= link_to "Login", new_user_session_path, class: "nav-link" %>
-          </li>
-        <% end %>
-      </ul>
-    </div>
+        <%# else %>-->
+<!--          <li class="nav-item">-->
+            <%#= link_to "Login", new_user_session_path, class: "nav-link" %>
+<!--          </li>-->
+        <%# end %>
+<!--      </ul>
+    </div>-->
   </div>
 </div>

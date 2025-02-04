@@ -27,4 +27,10 @@ class UsersController < ApplicationController
       render json: { message: "You are not following #{@user_to_unfollow.username}." }, status: :unprocessable_entity
     end
   end
+
+  private
+
+  def user_params
+    params.require(:user).permit(:username, :email, :password, :photo)
+  end
 end

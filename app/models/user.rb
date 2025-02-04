@@ -8,9 +8,9 @@ class User < ApplicationRecord
 
   def profile_image_url
     if photo.attached?
-      Rails.application.routes.url_helpers.rails_blob_path(photo, only_path: true)
+      Rails.application.routes.url_helpers.rails_blob_url(photo, host: "http://localhost:3000")
     else
-      '/assets/default_image.png'
+      ActionController::Base.helpers.asset_path("default_image.png")
     end
   end
 

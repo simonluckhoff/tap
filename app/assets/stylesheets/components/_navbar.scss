@@ -15,10 +15,9 @@
   justify-content: left;
 }
 
-.tapthat{
-  color: white;
-  font-weight: bold;
-  padding-left: 25px;
+.inverted{
+  filter: invert(1);
+  margin-right: 10px;
 }
 
 .navbar {
@@ -40,11 +39,7 @@
   height: 100%;
 }
 
-.list-items{
-  list-style: none;
-  padding-top: 15px;
-  transition: transform 0.5s ease;
-}
+
 
 .list-items-text{
   text-decoration: none;
@@ -59,10 +54,14 @@ li{
   list-style: none;
 }
 
-.list{
-  padding-top: 10px;
-  margin: 0;
+.search-bar{
+  box-shadow: 0 0 8px rgba(248, 251, 255, 0.2);
 }
+
+.pad{
+  padding: 0;
+}
+
 
 
 
@@ -70,23 +69,85 @@ li{
   .navbar {
     position: sticky;
     bottom: 0;
+    left: 0;
     width: 100%;
     color: white;
     background-color: #022F56;
-    box-shadow: 5px 5px 20px rgba(184, 209, 205, 0.8);
+    box-shadow: 5px -5px 10px rgba(38, 71, 108, 0.3);
     z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5;
   }
 
+  // .navbar-align {
+  //   position: fixed;
+  //   bottom: 0;
+  //   left: 0;
+  //   width: 100%;
+  // }
 
-  .navbar-align{
+  .search-bar{
+    margin-bottom: 15px;
+  }
+
+  ul{
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    width: 100%;
-    padding-right: 25px;
+    justify-content: center;
+    align-items: center;
+    gap: 45px;
+    padding: 0;
+    height: 40px;
   }
 
   .list{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .list-items-text{
     display: none;
+  }
+
+  .tapthat{
+    display: none;
+  }
+}
+
+@media (min-width: 600px){
+  .tapthat{
+    color: white;
+    font-weight: bold;
+    padding-left: 25px;
+    font-size: 2.5rem;
+  }
+
+  .list{
+    padding-top: 10px;
+    margin: 0;
+    margin-left: 20px;
+  }
+
+  .tapthat{
+    color: white;
+    font-weight: bold;
+    padding-left: 25px;
+  }
+
+  .list-items{
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    list-style: none;
+    padding-top: 28px;
+    transition: transform 0.5s ease;
+  }
+
+  .search-bar{
+    margin-top: 30px;
+    margin-left: 25px;
   }
 }

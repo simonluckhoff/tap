@@ -18,8 +18,11 @@ Like.destroy_all
 Share.destroy_all
 PostInterest.destroy_all
 UserInterest.destroy_all
+Comment.destroy_all
 Post.destroy_all
 Interest.destroy_all
+Message.destroy_all
+Chat.destroy_all
 User.destroy_all
 
 # Create interests
@@ -42,7 +45,7 @@ end
 # Create users
 puts "Creating users..."
 users = []
-10.times do
+2.times do
   user = User.new(
     email: Faker::Internet.unique.email,
     password: 'password123',
