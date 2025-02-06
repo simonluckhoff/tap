@@ -1,31 +1,35 @@
 <div class="shift-250 p-5">
-<h1>Your Chats</h1>
-<p>Welcome to your chat dashboard. Here you can see all your active conversations.</p>
+  <div class="user-info">
+    <span class="username">
+      <%= link_to "@#{current_user.username}", user_path(current_user) %>
+    </span>
+    <%= image_tag current_user.profile_image_url, alt: current_user.username, class: "profile-image" %>
+  </div>
 
-<ul>
-  <% @chats.each do |chat| %>
-    <% other_user = chat.sender == current_user ? chat.recipient : chat.sender %>
-    <li>
-      <%= link_to other_user.username, chat_path(chat) %>
-    </li>
+  <h3 class="pt-4">Your Chats</h3>
+  <ul>
+    <% @chats.each do |chat| %>
+      <% other_user = chat.sender == current_user ? chat.recipient : chat.sender %>
+      <li>
+        <%= link_to other_user.username, chat_path(chat) %>
+      </li>
+    <% end %>
+  </ul>
+
+  <h2 class="pt-4">Start a Chat</h2>
+
+  <%= simple_form_for @chat, url: chats_path, method: :post, html: { style: "width: 100%;" } do |form| %>
+    <div class="form-group">
+      <%= form.label :recipient_id, "Select a User", class: "pb-3" %>
+      <%= form.collection_select :recipient_id, @users, :id, :username, prompt: "Choose a user", class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= text_area_tag :message_content, nil, placeholder: "Type a message", rows: 3, class: "form-control pb-5" %>
+    </div>
+
+    <div class="form-group">
+      <%= form.button :submit, "Send Message", class: "btn btn-primary" %>
+    </div>
   <% end %>
-</ul>
-
-<h2>Start a New Conversation</h2>
-<%= simple_form_for @chat, url: chats_path, method: :post do |form| %>
-  <div>
-  <%= form.input :recipient_id,
-    collection: @users.map { |user| [user.username, user.id] },
-    prompt: "Choose a user",
-    label: "Select a User" %>
-  </div>
-
-  <div>
-    <%= text_area_tag :message_content, nil, placeholder: "Type your message here", rows: 3 %>
-  </div>
-
-  <div>
-    <%= form.button :submit, "Start Chat & Send Message", class: "send-button" %>
-  </div>
-<% end %>
 </div>
