@@ -1,5 +1,5 @@
 class ChatsController < ApplicationController
-  before_action :set_chat, only: [:show]
+  # before_action :set_chat, only: [:show]
 
   def index
     @chats = Chat.where(sender: current_user).or(Chat.where(recipient: current_user))
@@ -8,6 +8,8 @@ class ChatsController < ApplicationController
   end
 
   def show
+    recipient = User.find(params[:recipient_id])
+    @chat = Chat.find_or_create_by(sender: current_user, recipient_id: recipient.id)
     @messages = @chat.messages.order(created_at: :asc)
   end
 
@@ -26,7 +28,6 @@ class ChatsController < ApplicationController
 
     # Create or find an existing chat between current_user and the recipient
     @chat = Chat.find_or_create_by(sender: current_user, recipient: recipient)
-
     # If the chat is created successfully
     if @chat.persisted?
       # If a message was provided, send it
@@ -41,7 +42,8 @@ class ChatsController < ApplicationController
       else
         flash[:notice] = "Chat started without a message."
       end
-      redirect_to @chat
+      # redirect_to @chat
+      redirect_to chat_path(@chat)
     else
       flash[:alert] = "Could not start chat."
       redirect_to chats_path

@@ -12,7 +12,7 @@
       </div>
       <div class="d-flex align-items-center profile-follow justify-content-space-evenly">
           <% if current_user == @user %>
-            <%= link_to 'Edit Profile', edit_profile_path(@user), class: 'btn btn-outline-secondary px-4 profile-info-colu' %>
+            <%= link_to 'Edit', edit_profile_path(@user), class: 'btn btn-outline-secondary px-4 profile-info-colu mt-2' %>
           <% else %>
           <!-- follow and unfollow -->
             <div id="follow-unfollow-container">
@@ -34,9 +34,11 @@
             </div>
           <% end %>
 
-          <%= link_to image_tag("envelope-arrow-up.svg", height: "20px", width: "20px", class: ""), create_chat_path(recipient_id: @user.id), method: :post, class: "px-4" %>
+          <% if @user != current_user %>
+            <%= link_to image_tag("envelope-arrow-up.svg", height: "20px", width: "20px", class: ""), chat_path(recipient_id: @user.id), class: "px-4" %>
+          <% end %>
           <% if @user == current_user %>
-            <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "btn btn-outline-danger ms-2 profile-info-colu" %>
+            <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "btn btn-outline-danger ms-2 profile-info-colu mt-2" %>
           <% end %>
         </div>
     </div>
