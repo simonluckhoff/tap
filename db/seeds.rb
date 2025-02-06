@@ -399,9 +399,9 @@ yasha.photo.attach(
   )
 
   post.photo.attach(
-    io: File.open(Rails.root.join("app/assets/images/matt1.jpg")),
-    filename: "matt1.jpg",
-    content_type: "image/jpg"
+    io: File.open(Rails.root.join("app/assets/images/matt1.jpeg")),
+    filename: "matt1.jpeg",
+    content_type: "image/jpeg"
   )
 
 # Create follows
