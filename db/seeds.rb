@@ -28,13 +28,12 @@ User.destroy_all
 # Create interests
 puts "Creating interests..."
 interests = [
-  'Technology',
   'Travel',
   'Food',
-  'Music',
   'Sports',
-  'Art',
-  'Books'
+  'Animals',
+  'Gaming',
+  'Photography'
 ].map do |title|
   Interest.create!(
     title: title,
@@ -43,111 +42,460 @@ interests = [
 end
 
 # Create users
-puts "Creating users..."
-users = []
-2.times do
-  user = User.new(
-    email: Faker::Internet.unique.email,
-    password: 'password123',
-    username: Faker::Internet.unique.username(specifier: 5..10),
-    bio: Faker::Quote.jack_handey
-  )
-   # Attach a random image to the user
-   user.photo.attach(
-    io: File.open(Rails.root.join("app/assets/images/user#{rand(1..15)}.jpg")),
-    filename: "user.jpg",
+matt = User.create(
+  email: 'mattdenton94@gmail.com',
+  password: 'Tasneem@10',
+  username: 'Matt',
+  bio: 'Dad, dog dad, husband, and world changer!'
+)
+
+  matt.photo.attach(
+    io: File.open(Rails.root.join("app/assets/images/matt_profile_image.jpeg")),
+    filename: "matt_profile_image.jpeg",
+    content_type: "image/jpeg"
+)
+
+simon = User.create(
+  email: 'simonluckhoff@gmail.com',
+  password: 'kaptein',
+  username: 'sims7878',
+  bio: 'Car photographer and wannabe coder!'
+)
+
+simon.photo.attach(
+  io: File.open(Rails.root.join("app/assets/images/simon_profile_image.png")),
+  filename: "simon_profile_image.png",
+  content_type: "image/jpeg"
+)
+
+yasha = User.create(
+  email: 'yasha@gmail.com',
+  password: 'password',
+  username: 'Yasha',
+  bio: 'Mom and coder!'
+)
+
+yasha.photo.attach(
+    io: File.open(Rails.root.join("app/assets/images/yasha_profile_image.jpg")),
+    filename: "yasha_profile_image.jpg",
     content_type: "image/jpeg"
   )
-  user.save
-  users << user
-end
 
-# # Create an admin user
-# admin = User.create!(
-#   email: 'admin@example.com',
-#   password: 'password123',
-#   username: 'admin',
-#   bio: 'Admin user'
-# )
+  puts "Creating posts..."
+  post = Post.create!(
+    user: matt,
+    content: 'I love being a soccer dad!'
+  )
 
-# Create posts
-puts "Creating posts..."
-users.each do |user|
-  3.times do |i|
-    puts "creating a user"
-    post = Post.new(
-      user: user,
-       content: "#{Faker::Quote.jack_handey} ##{interests.sample.title}"
-    )
-      # Attach a random image to the post
-      post.photo.attach(
-        io: File.open(Rails.root.join("app/assets/images/user#{rand(1..15)}.jpg")),
-        filename: "post.jpg",
-        content_type: "image/jpeg"
-      )
-      post.save
-  end
-end
+  post.photo.attach(
+    io: File.open(Rails.root.join("app/assets/images/matt1.jpeg")),
+    filename: "matt1.jpeg",
+    content_type: "image/jpeg"
+  )
+
+  post = Post.create!(
+    user: simon,
+    content: 'Coffee to go! #onthejon'
+  )
+
+  post.photo.attach(
+    io: File.open(Rails.root.join("app/assets/images/simon1.jpg")),
+    filename: "simon1.jpg",
+    content_type: "image/jpg"
+  )
+
+  post = Post.create!(
+    user: yasha,
+    content: 'Wheels in motion, heart full of joy'
+  )
+
+  post.photo.attach(
+    io: File.open(Rails.root.join("app/assets/images/yasha1.jpg")),
+    filename: "yasha1.jpg",
+    content_type: "image/jpg"
+  )
+
+  post = Post.create!(
+    user: matt,
+    content: 'School trips are a blast with you guys!'
+  )
+
+  post.photo.attach(
+    io: File.open(Rails.root.join("app/assets/images/matt2.jpeg")),
+    filename: "matt2.jpeg",
+    content_type: "image/jpeg"
+  )
+
+  post = Post.create!(
+    user: simon,
+    content: 'Drink responsibly kids'
+  )
+
+  post.photo.attach(
+    io: File.open(Rails.root.join("app/assets/images/simon2.jpg")),
+    filename: "simon2.jpg",
+    content_type: "image/jpg"
+  )
+
+  post = Post.create!(
+    user: yasha,
+    content: 'Wrapped in love, held in my heart'
+  )
+
+  post.photo.attach(
+    io: File.open(Rails.root.join("app/assets/images/yasha2.jpg")),
+    filename: "yasha2.jpg",
+    content_type: "image/jpg"
+  )
+
+  post = Post.create!(
+    user: matt,
+    content: 'Date night with wifey'
+  )
+
+  post.photo.attach(
+    io: File.open(Rails.root.join("app/assets/images/matt3.jpeg")),
+    filename: "matt3.jpeg",
+    content_type: "image/jpeg"
+  )
+
+  post = Post.create!(
+    user: simon,
+    content: 'My dog! Kaptein! in his birthday suit. #standingonbusiness'
+  )
+
+  post.photo.attach(
+    io: File.open(Rails.root.join("app/assets/images/simon3.jpg")),
+    filename: "simon3.jpg",
+    content_type: "image/jpg"
+  )
+
+  post = Post.create!(
+    user: yasha,
+    content: 'Standing tall and proud, our little superstar is growing up!'
+  )
+
+  post.photo.attach(
+    io: File.open(Rails.root.join("app/assets/images/yasha3.jpg")),
+    filename: "yasha3.jpg",
+    content_type: "image/jpg"
+  )
+
+  post = Post.create!(
+    user: matt,
+    content: '10/10/20'
+  )
+
+  post.photo.attach(
+    io: File.open(Rails.root.join("app/assets/images/matt4.jpeg")),
+    filename: "matt4.jpeg",
+    content_type: "image/jpeg"
+  )
+
+  post = Post.create!(
+    user: simon,
+    content: 'How many cameras do you count? One for every occasion.'
+  )
+
+  post.photo.attach(
+    io: File.open(Rails.root.join("app/assets/images/simon4.jpg")),
+    filename: "simon4.jpg",
+    content_type: "image/jpg"
+  )
+
+  post = Post.create!(
+    user: yasha,
+    content: 'Shaded souls, sunny hearts, and a low that is always in focus'
+  )
+
+  post.photo.attach(
+    io: File.open(Rails.root.join("app/assets/images/yasha4.jpg")),
+    filename: "yasha4.jpg",
+    content_type: "image/jpg"
+  )
+
+  post = Post.create!(
+    user: matt,
+    content: 'Life is such a drag man...'
+  )
+
+  post.photo.attach(
+    io: File.open(Rails.root.join("app/assets/images/matt5.jpeg")),
+    filename: "matt5.jpeg",
+    content_type: "image/jpeg"
+  )
+
+  post = Post.create!(
+    user: simon,
+    content: 'Viper green Turbo s baby. Green with envy!'
+  )
+
+  post.photo.attach(
+    io: File.open(Rails.root.join("app/assets/images/simon5.jpg")),
+    filename: "simon5.jpg",
+    content_type: "image/jpg"
+  )
+
+  post = Post.create!(
+    user: yasha,
+    content: 'Where the road takes us, elegance follows...'
+  )
+
+  post.photo.attach(
+    io: File.open(Rails.root.join("app/assets/images/yasha5.jpg")),
+    filename: "yasha5.jpg",
+    content_type: "image/jpg"
+  )
+
+  post = Post.create!(
+    user: matt,
+    content: 'My gran is better than yours!'
+  )
+
+  post.photo.attach(
+    io: File.open(Rails.root.join("app/assets/images/matt6.jpeg")),
+    filename: "matt6.jpeg",
+    content_type: "image/jpeg"
+  )
+
+  post = Post.create!(
+    user: simon,
+    content: 'Sunday morning walks in Hermanus, a personal fav.'
+  )
+
+  post.photo.attach(
+    io: File.open(Rails.root.join("app/assets/images/simon6.jpg")),
+    filename: "simon6.jpg",
+    content_type: "image/jpg"
+  )
+
+  post = Post.create!(
+    user: yasha,
+    content: 'Helping hands and a loving touch'
+  )
+
+  post.photo.attach(
+    io: File.open(Rails.root.join("app/assets/images/yasha7.jpg")),
+    filename: "yasha7.jpg",
+    content_type: "image/jpg"
+  )
+
+  post = Post.create!(
+    user: matt,
+    content: 'Friday night tennis is the perfect end to a week...'
+  )
+
+  post.photo.attach(
+    io: File.open(Rails.root.join("app/assets/images/matt7.jpeg")),
+    filename: "matt7.jpeg",
+    content_type: "image/jpeg"
+  )
+
+  post = Post.create!(
+    user: simon,
+    content: 'Just a random mirror selfie'
+  )
+
+  post.photo.attach(
+    io: File.open(Rails.root.join("app/assets/images/simon7.jpg")),
+    filename: "simon7.jpg",
+    content_type: "image/jpg"
+  )
+
+  post = Post.create!(
+    user: yasha,
+    content: 'Besties for life: sharing smiles, secrets, and so much more'
+  )
+
+  post.photo.attach(
+    io: File.open(Rails.root.join("app/assets/images/yasha8.jpg")),
+    filename: "yasha8.jpg",
+    content_type: "image/jpg"
+  )
+
+  post = Post.create!(
+    user: matt,
+    content: 'Mornings with my homie!'
+  )
+
+  post.photo.attach(
+    io: File.open(Rails.root.join("app/assets/images/matt8.jpeg")),
+    filename: "matt8.jpeg",
+    content_type: "image/jpeg"
+  )
+
+  post = Post.create!(
+    user: simon,
+    content: 'A trip down memoery lane. Whipped out the PSP! Juiced 2!'
+  )
+
+  post.photo.attach(
+    io: File.open(Rails.root.join("app/assets/images/simon8.jpg")),
+    filename: "simon8.jpg",
+    content_type: "image/jpg"
+  )
+
+  post = Post.create!(
+    user: yasha,
+    content: 'Our greatest adventure begins...little one on board'
+  )
+
+  post.photo.attach(
+    io: File.open(Rails.root.join("app/assets/images/yasha9.jpg")),
+    filename: "yasha9.jpg",
+    content_type: "image/jpg"
+  )
+
+  post = Post.create!(
+    user: matt,
+    content: 'My mini me'
+  )
+
+  post.photo.attach(
+    io: File.open(Rails.root.join("app/assets/images/matt9.jpeg")),
+    filename: "matt9.jpeg",
+    content_type: "image/jpeg"
+  )
+
+  post = Post.create!(
+    user: simon,
+    content: 'No filter. Cotton candy skies.'
+  )
+
+  post.photo.attach(
+    io: File.open(Rails.root.join("app/assets/images/simon9.jpg")),
+    filename: "simon9.jpg",
+    content_type: "image/jpg"
+  )
+
+  post = Post.create!(
+    user: matt,
+    content: 'Someone is a little jealous'
+  )
+
+  post.photo.attach(
+    io: File.open(Rails.root.join("app/assets/images/matt10.jpeg")),
+    filename: "matt10.jpeg",
+    content_type: "image/jpeg"
+  )
+
+  post = Post.create!(
+    user: simon,
+    content: 'Ice cream with bae.'
+  )
+
+  post.photo.attach(
+    io: File.open(Rails.root.join("app/assets/images/simon10.jpg")),
+    filename: "simon10.jpg",
+    content_type: "image/jpg"
+  )
+
+  puts "Finished creating posts."
+
+  puts "Creating posts..."
+  post = Post.create!(
+    user: matt,
+    content: 'I love being a soccer dad!'
+  )
+
+  post.photo.attach(
+    io: File.open(Rails.root.join("app/assets/images/matt1.jpeg")),
+    filename: "matt1.jpeg",
+    content_type: "image/jpeg"
+  )
 
 # Create follows
 puts "Creating follows..."
-users.each do |user|
-  # Each user follows 3 random users
-  (users - [user]).sample(3).each do |user_to_follow|
-    Follow.create!(
-      follower: user,
-      following: user_to_follow
-    )
-  end
-end
+matt = User.find_by(email: 'mattdenton94@gmail.com')
+simon = User.find_by(email: 'simonluckhoff@gmail.com')
+yasha = User.find_by(email: 'yasha@gmail.com')
+
+Follow.create!(follower: matt, following: simon)
+Follow.create!(follower: matt, following: yasha)
+Follow.create!(follower: simon, following: matt)
+Follow.create!(follower: simon, following: yasha)
+Follow.create!(follower: yasha, following: matt)
+Follow.create!(follower: yasha, following: simon)
 
 # Create likes
 puts "Creating likes..."
+matt = User.find_by(email: 'mattdenton94@gmail.com')
+simon = User.find_by(email: 'simonluckhoff@gmail.com')
+yasha = User.find_by(email: 'yasha@gmail.com')
+
 posts = Post.all
-users.each do |user|
-  # Each user likes 5 random posts
-  posts.sample(5).each do |post|
-    Like.create!(
-      user: user,
-      post: post
-    )
-  end
+
+# Matt likes 5 random posts
+posts.sample(5).each do |post|
+  Like.create!(
+    user: matt,
+    post: post
+  )
 end
 
-# Create shares
-puts "Creating shares..."
-users.each do |user|
-  # Each user shares 2 random posts
-  posts.sample(2).each do |post|
-    Share.create!(
-      user: user,
-      post: post,
-      # share_comment: "Check this out! Shared by #{user.username}"
-    )
-  end
+# Simon likes 5 random posts
+posts.sample(5).each do |post|
+  Like.create!(
+    user: simon,
+    post: post
+  )
+end
+
+# Yasha likes 5 random posts
+posts.sample(5).each do |post|
+  Like.create!(
+    user: yasha,
+    post: post
+  )
 end
 
 # Assign interests to users
 puts "Creating user interests..."
-users.each do |user|
-  # Each user follows 3 random interests
-  interests.sample(3).each do |interest|
-    UserInterest.create!(
-      user: user,
-      interest: interest
-    )
-  end
-end
+
+# Assign specific interests to users
+matt = User.find_by(email: 'mattdenton94@gmail.com')
+simon = User.find_by(email: 'simonluckhoff@gmail.com')
+yasha = User.find_by(email: 'yasha@gmail.com')
+
+sport = Interest.find_by(title: 'Sports')
+animals = Interest.find_by(title: 'Animals')
+photography = Interest.find_by(title: 'Photography')
+gaming = Interest.find_by(title: 'Gaming')
+travel = Interest.find_by(title: 'Travel')
+food = Interest.find_by(title: 'Food')
+
+UserInterest.create!(user: matt, interest: sport)
+UserInterest.create!(user: matt, interest: animals)
+UserInterest.create!(user: simon, interest: photography)
+UserInterest.create!(user: simon, interest: gaming)
+UserInterest.create!(user: yasha, interest: travel)
+UserInterest.create!(user: yasha, interest: food)
 
 # Assign interests to posts
 puts "Creating post interests..."
 posts.each do |post|
-  # Each post gets 1-2 random interests
-  interests.sample(rand(1..2)).each do |interest|
-    PostInterest.create!(
-      post: post,
-      interest: interest
-    )
+  case post.user
+  when matt
+    [sport, animals].each do |interest|
+      PostInterest.create!(
+        post: post,
+        interest: interest
+      )
+    end
+  when simon
+    [photography, gaming].each do |interest|
+      PostInterest.create!(
+        post: post,
+        interest: interest
+      )
+    end
+  when yasha
+    [travel, food].each do |interest|
+      PostInterest.create!(
+        post: post,
+        interest: interest
+      )
+    end
   end
 end
 
