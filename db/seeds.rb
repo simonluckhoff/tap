@@ -34,7 +34,14 @@ interests = [
   'Music',
   'Sports',
   'Art',
-  'Books'
+  'Books',
+  'Animals',
+  'Cars',
+  'Fashion',
+  'Fitness',
+  'Gaming',
+  'Movies',
+  'Photography'
 ].map do |title|
   Interest.create!(
     title: title,
@@ -77,13 +84,11 @@ user = User.new(
   users << user
 
 
-# # Create an admin user
-# admin = User.create!(
-#   email: 'admin@example.com',
-#   password: 'password123',
-#   username: 'admin',
-#   bio: 'Admin user'
-# )
+  puts "Creating posts..."
+  post = Post.create!(
+    user: matt,
+    content: 'I love being a soccer dad!'
+  )
 
 # Create posts
 puts "Creating posts..."
@@ -106,63 +111,96 @@ end
 
 # Create follows
 puts "Creating follows..."
-users.each do |user|
-  # Each user follows 3 random users
-  (users - [user]).sample(3).each do |user_to_follow|
-    Follow.create!(
-      follower: user,
-      following: user_to_follow
-    )
-  end
-end
+matt = User.find_by(email: 'mattdenton94@gmail.com')
+simon = User.find_by(email: 'simonluckhoff@gmail.com')
+yasha = User.find_by(email: 'yasha@gmail.com')
+
+Follow.create!(follower: matt, following: simon)
+Follow.create!(follower: matt, following: yasha)
+Follow.create!(follower: simon, following: matt)
+Follow.create!(follower: simon, following: yasha)
+Follow.create!(follower: yasha, following: matt)
+Follow.create!(follower: yasha, following: simon)
 
 # Create likes
 puts "Creating likes..."
+matt = User.find_by(email: 'mattdenton94@gmail.com')
+simon = User.find_by(email: 'simonluckhoff@gmail.com')
+yasha = User.find_by(email: 'yasha@gmail.com')
+
 posts = Post.all
-users.each do |user|
-  # Each user likes 5 random posts
-  posts.sample(5).each do |post|
-    Like.create!(
-      user: user,
-      post: post
-    )
-  end
+
+# Matt likes 5 random posts
+posts.sample(5).each do |post|
+  Like.create!(
+    user: matt,
+    post: post
+  )
 end
 
-# Create shares
-puts "Creating shares..."
-users.each do |user|
-  # Each user shares 2 random posts
-  posts.sample(2).each do |post|
-    Share.create!(
-      user: user,
-      post: post,
-      # share_comment: "Check this out! Shared by #{user.username}"
-    )
-  end
+# Simon likes 5 random posts
+posts.sample(5).each do |post|
+  Like.create!(
+    user: simon,
+    post: post
+  )
+end
+
+# Yasha likes 5 random posts
+posts.sample(5).each do |post|
+  Like.create!(
+    user: yasha,
+    post: post
+  )
 end
 
 # Assign interests to users
 puts "Creating user interests..."
-users.each do |user|
-  # Each user follows 3 random interests
-  interests.sample(3).each do |interest|
-    UserInterest.create!(
-      user: user,
-      interest: interest
-    )
-  end
-end
+
+# Assign specific interests to users
+matt = User.find_by(email: 'mattdenton94@gmail.com')
+simon = User.find_by(email: 'simonluckhoff@gmail.com')
+yasha = User.find_by(email: 'yasha@gmail.com')
+
+sport = Interest.find_by(title: 'Sports')
+animals = Interest.find_by(title: 'Animals')
+photography = Interest.find_by(title: 'Photography')
+gaming = Interest.find_by(title: 'Gaming')
+travel = Interest.find_by(title: 'Travel')
+food = Interest.find_by(title: 'Food')
+
+UserInterest.create!(user: matt, interest: sport)
+UserInterest.create!(user: matt, interest: animals)
+UserInterest.create!(user: simon, interest: photography)
+UserInterest.create!(user: simon, interest: gaming)
+UserInterest.create!(user: yasha, interest: travel)
+UserInterest.create!(user: yasha, interest: food)
 
 # Assign interests to posts
 puts "Creating post interests..."
 posts.each do |post|
-  # Each post gets 1-2 random interests
-  interests.sample(rand(1..2)).each do |interest|
-    PostInterest.create!(
-      post: post,
-      interest: interest
-    )
+  case post.user
+  when matt
+    [sport, animals].each do |interest|
+      PostInterest.create!(
+        post: post,
+        interest: interest
+      )
+    end
+  when simon
+    [photography, gaming].each do |interest|
+      PostInterest.create!(
+        post: post,
+        interest: interest
+      )
+    end
+  when yasha
+    [travel, food].each do |interest|
+      PostInterest.create!(
+        post: post,
+        interest: interest
+      )
+    end
   end
 end
 
