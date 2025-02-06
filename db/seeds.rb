@@ -398,6 +398,12 @@ yasha.photo.attach(
     content: 'I love being a soccer dad!'
   )
 
+  post.photo.attach(
+    io: File.open(Rails.root.join("app/assets/images/matt1.jpg")),
+    filename: "matt1.jpg",
+    content_type: "image/jpg"
+  )
+
 # Create follows
 puts "Creating follows..."
 matt = User.find_by(email: 'mattdenton94@gmail.com')
