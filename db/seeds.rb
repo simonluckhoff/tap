@@ -398,25 +398,6 @@ yasha.photo.attach(
     content: 'I love being a soccer dad!'
   )
 
-# Create posts
-puts "Creating posts..."
-users.each do |user|
-  3.times do |i|
-    puts "creating a user"
-    post = Post.new(
-      user: "MattDenton94",
-      content: "I love being a soccer dad! ##{interests.sport}"
-    )
-      # Attach a random image to the post
-      post.photo.attach(
-        io: File.open(Rails.root.join("app/assets/images/user#{rand(1..15)}.jpg")),
-        filename: "post.jpg",
-        content_type: "image/jpeg"
-      )
-      post.save
-  end
-end
-
 # Create follows
 puts "Creating follows..."
 matt = User.find_by(email: 'mattdenton94@gmail.com')
