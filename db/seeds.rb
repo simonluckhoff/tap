@@ -392,7 +392,6 @@ yasha.photo.attach(
 
   puts "Finished creating posts."
 
-=======
   user.save
   users << user
 
