@@ -17,16 +17,10 @@
   overflow-y: scroll;
 }
 
-// .wide{
-//   width: auto;
-//   height: 400px;
-//   overflow: hidden;
-// }
-
 .photo-container-crop{
   overflow: hidden;
   width: 100%;
-  height: 600px;
+  height: 550px;
   position: relative;
 }
 
@@ -47,17 +41,8 @@
 }
 
 @media (max-width: 430px) {
-  .single{
-    min-width: 250px;
-  }
+
 }
-
-// .interest-posts {
-//   display: flex;
-//   justify-content: space-between;
-//   flex-direction: row;
-
-// }
 
 /* Prevent overlap with the sidebar on large screens */
 @media (min-width: 431px) {
@@ -94,17 +79,7 @@
   border-radius: 10px;
 }
 
-/* On small screens, allow horizontal scrolling if needed */
-@media (max-width: 430px) {
-  .interest-posts {
-    flex-wrap: nowrap;
-    overflow-x: auto;
-  }
 
-  .interest-posts img {
-    max-height: 250px; /* Slightly smaller for mobile */
-  }
-}
 /* Container holding the image and the overlay */
 .photo-container {
   position: relative;
@@ -124,9 +99,9 @@
   right: 0;
   bottom: 0;
   font-size: 15px;
-  padding: 25px;
+  // padding: 25px;
   height: 30%;
-  padding-top: 50px;
+  // padding-top: 50px;
 }
 
 .image-container {
@@ -136,7 +111,8 @@
 
 .rowwy{
   .image-container{
-    height: 450px;
+    // height: 450px;
+    height: 350px;
   }
 }
 
@@ -173,3 +149,56 @@
   overflow-y: scroll;
   height: 100px;
 }
+
+.search-bar{
+  padding-top: 20px;
+}
+
+/* On small screens, allow horizontal scrolling if needed */
+@media (max-width: 430px) {
+  .interest-posts {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+  }
+
+  .interest-posts img {
+    max-height: 250px; /* Slightly smaller for mobile */
+  }
+
+  .overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    font-size: 15px;
+    padding-left: 25px;
+    padding-right: 25px;
+    height: 30%;
+  }
+
+  .single{
+    min-width: 250px;
+  }
+}
+
+@media (min-width: 430px) {
+  .overlay {
+    padding-left: 30px;
+  }
+}
+
+
+// .there{
+//   position: fixed;
+//   top: 0;
+//   left: 0;
+//   z-index: 1000;
+//   background-color: #fff8ea;
+//   padding-bottom: 20px;
+//   margin-bottom: 10px;
+//   // margin-left: 350px;
+// }
+
+// .down{
+//   margin-top: 60px;
+// }
