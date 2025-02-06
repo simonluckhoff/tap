@@ -28,19 +28,11 @@ User.destroy_all
 # Create interests
 puts "Creating interests..."
 interests = [
-  'Technology',
   'Travel',
   'Food',
-  'Music',
   'Sports',
-  'Art',
-  'Books',
   'Animals',
-  'Cars',
-  'Fashion',
-  'Fitness',
   'Gaming',
-  'Movies',
   'Photography'
 ].map do |title|
   Interest.create!(
