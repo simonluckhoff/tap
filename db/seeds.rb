@@ -392,10 +392,6 @@ yasha.photo.attach(
 
   puts "Finished creating posts."
 
-  user.save
-  users << user
-
-
   puts "Creating posts..."
   post = Post.create!(
     user: matt,
