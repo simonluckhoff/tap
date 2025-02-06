@@ -1,5 +1,6 @@
 <h1>Edit Profile</h1>
 <%= simple_form_for @user, url: profile_path(@user) do |f| %>
+  <%= f.input :photo, as: :file, label: 'Change Profile Picture', required: false, class: 'btn btn-secondary mt-2' %>
   <%= f.input :first_name %>
   <%= f.input :last_name %>
   <%= f.input :username %>
