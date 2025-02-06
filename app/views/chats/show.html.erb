@@ -1,4 +1,4 @@
-<div class="shift-250" style="padding-left: 20px; padding-top: 20px;">
+<div class="shift-250 p-5">
 <h2>Chat with <%= link_to (@chat.recipient == current_user ? @chat.sender.username : @chat.recipient.username), user_path(@chat.recipient == current_user ? @chat.sender : @chat.recipient) %></h1>
 
 <div id="messages">

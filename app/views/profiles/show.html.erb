@@ -1,4 +1,4 @@
-<div class="shift-250">
+<div class="shift-250" data-controller="follow" data-user-id="<%= @user.id %>" >
 <div class="fade-bg px-3">
 <div class="div-one">
   <!-- Profile Header -->
@@ -10,10 +10,41 @@
 
         <i class="bi bi-person" style="font-size: 4rem;"></i>
       </div>
+      <div class="d-flex align-items-center profile-follow justify-content-space-evenly">
+          <% if current_user == @user %>
+            <%= link_to 'Edit', edit_profile_path(@user), class: 'btn btn-outline-secondary px-4 profile-info-colu mt-2' %>
+          <% else %>
+          <!-- follow and unfollow -->
+            <div id="follow-unfollow-container">
+              <% if current_user.following.include?(@user) %>
+                <div class="btn px-4" data-action="click->follow#unfollow" data-follow-target="button">
+                  <!--Following-->
+                  <%#= image_tag("notfollowing.svg", height: "20px", width: "20px", class: "") %>
+                  <!--following-->
+                  <i class="fa-solid fa-user-check"></i>
+                </div>
+              <% else %>
+                <div class="btn px-4" data-action="click->follow#follow" data-follow-target="button">
+                  <!--Follow-->
+                  <%#= image_tag("follow.svg", height: "20px", width: "20px", class: "") %>
+                  <!--follow-->
+                  <i class="fa-solid fa-user-plus"></i>
+                </div>
+              <% end %>
+            </div>
+          <% end %>
+
+          <% if @user != current_user %>
+            <%= link_to image_tag("envelope-arrow-up.svg", height: "20px", width: "20px", class: ""), chat_path(recipient_id: @user.id), class: "px-4" %>
+          <% end %>
+          <% if @user == current_user %>
+            <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "btn btn-outline-danger ms-2 profile-info-colu mt-2" %>
+          <% end %>
+        </div>
     </div>
     </div>
 
-  <div class="div-two" data-controller="follow" data-user-id="<%= @user.id %>">
+  <div class="div-two">
     <!-- Profile Info Column -->
     <div class="profile-name-follow-unfollow">
       <div class="mt-3">
@@ -22,27 +53,7 @@
         <div class="profile-name">
           <h4 class=""><%= "@#{@user.username}" %></h4>
         </div>
-        <div class="d-flex align-items-center mb-3 profile-follow">
-          <% if current_user == @user %>
-            <%= link_to 'Edit Profile', edit_profile_path(@user), class: 'btn btn-outline-secondary px-4 profile-info-colu' %>
-          <% else %>
-          <!-- follow and unfollow -->
-            <div id="follow-unfollow-container">
-              <% if current_user.following.include?(@user) %>
-                <button class="btn btn-outline-dark px-4" data-action="click->follow#unfollow" data-follow-target="button">
-                  Following
-                </button>
-              <% else %>
-                <button class="btn px-5" data-action="click->follow#follow" data-follow-target="button">
-                  Follow
-                </button>
-              <% end %>
-            </div>
-          <% end %>
 
-          <%= button_to "Start Chat", create_chat_path(recipient_id: @user.id), method: :post, class: "btn btn-primary start-chat profile-info-colu" %>
-          <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "btn btn-outline-danger ms-2 profile-info-colu" %>
-        </div>
         </div>
       </div>
       </div>

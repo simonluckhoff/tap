@@ -20,22 +20,9 @@
   margin-right: 10px;
 }
 
-.navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 350px;
-  height: 100%;
-  padding-top: 20px;
-  color: white;
-  background-color: #022F56;
-  box-shadow: 0 0 25px rgba(31, 62, 96, 0.9);
-}
-
 .navbar-align{
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   height: 100%;
 }
 
@@ -67,7 +54,7 @@ li{
 
 @media (max-width: 430px) {
   .navbar {
-    position: sticky;
+    position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
@@ -78,18 +65,7 @@ li{
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 5;
-  }
-
-  // .navbar-align {
-  //   position: fixed;
-  //   bottom: 0;
-  //   left: 0;
-  //   width: 100%;
-  // }
-
-  .search-bar{
-    margin-bottom: 15px;
+    padding-top: 15px;
   }
 
   ul{
@@ -118,6 +94,18 @@ li{
 }
 
 @media (min-width: 600px){
+  .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 350px;
+    height: 100%;
+    padding-top: 20px;
+    color: white;
+    background-color: #022F56;
+    box-shadow: 0 0 25px rgba(31, 62, 96, 0.9);
+  }
+
   .tapthat{
     color: white;
     font-weight: bold;
@@ -144,10 +132,5 @@ li{
     list-style: none;
     padding-top: 28px;
     transition: transform 0.5s ease;
-  }
-
-  .search-bar{
-    margin-top: 30px;
-    margin-left: 25px;
   }
 }

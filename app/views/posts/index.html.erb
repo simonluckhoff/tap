@@ -1,10 +1,36 @@
 <div class="shift-250 pt-2">
-<div class="container">
+<div class="container justify-content-center down">
+<div class="row justify-content-center px-3">
+        <div class="justify-content-center search-bar col-md-6 col-lg-6 wide photo-container there">
+          <% if user_signed_in? %>
 
-  <div class="row justify-content-center single mt-3 rowwy">
+          <div class="col-sm-50 my-8 pad">
+            <%= form_with url: profiles_path, method: :get, class: "search-form" do %>
+              <div class="input-group">
+
+                <%= text_field_tag :query,
+                  params[:query],
+                  class: "form-control search-input search-height",
+                  placeholder: "type a name"
+                %>
+
+                <div class="input-group-append search-button submit">
+                  <%= submit_tag "Search", name: "", class: "btn btn-primary search-btn submit" %>
+                </div>
+
+              </div>
+            <% end %>
+          </div>
+          <% end %>
+        </div>
+
+        </div>
+
+  <div class="row justify-content-center single mt-3 rowwy px-3">
+
     <% @posts.each do |post| %>
       <div class="col-md-6 col-lg-6 mb-4 wide photo-container">
-        <div class="card shadow-sm bg-light photo-container-crop">
+        <div class=" shadow-sm bg-light photo-container-crop">
           <% if post.photo.attached? %>
             <div class="image-container">
             <%= cl_image_tag post.photo.key, height: 450, width: 300, class: "constrain-image photo" %>
@@ -23,7 +49,7 @@
             <div class="d-flex justify-content-left align-items-center mb-2 gap-3">
               <!-- Like Icon -->
               <div id="<%= dom_id(post, :like) %>" data-controller="like" data-like-post-id-value="<%= post.id %>" data-like-liked-value="<%= user_signed_in? && current_user.likes.exists?(post: post) %>">
-              <i class="fa fa-heart <%= user_signed_in? && current_user.likes.exists?(post: post) ? 'liked text-danger' : '' %>" data-action="click->like#toggleLike" style="cursor: pointer;"></i>
+              <i class="fa fa-heart <%= user_signed_in? && current_user.likes.exists?(post: post) ? 'liked text-danger' : '' %>" data-action="click->like#toggleLike" style="cursor: pointer; font-size: 1.2rem;"></i>
             </div>
 
             <!-- Comment Icon -->

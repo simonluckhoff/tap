@@ -148,15 +148,12 @@ GEM
     faraday-net_http (3.4.0)
       net-http (>= 0.5.0)
     ffi (1.17.1-aarch64-linux)
-    ffi (1.17.1-aarch64-linux-gnu)
     ffi (1.17.1-aarch64-linux-musl)
     ffi (1.17.1-arm-linux)
-    ffi (1.17.1-arm-linux-gnu)
     ffi (1.17.1-arm-linux-musl)
     ffi (1.17.1-arm64-darwin)
     ffi (1.17.1-x86_64-darwin)
     ffi (1.17.1-x86_64-linux)
-    ffi (1.17.1-x86_64-linux-gnu)
     ffi (1.17.1-x86_64-linux-musl)
     font-awesome-sass (6.7.2)
       sassc (~> 2.0)
@@ -210,13 +207,9 @@ GEM
     nio4r (2.7.4)
     nokogiri (1.18.2-aarch64-linux)
       racc (~> 1.4)
-    nokogiri (1.18.2-aarch64-linux-gnu)
-      racc (~> 1.4)
     nokogiri (1.18.2-aarch64-linux-musl)
       racc (~> 1.4)
     nokogiri (1.18.2-arm-linux)
-      racc (~> 1.4)
-    nokogiri (1.18.2-arm-linux-gnu)
       racc (~> 1.4)
     nokogiri (1.18.2-arm-linux-musl)
       racc (~> 1.4)
@@ -225,8 +218,6 @@ GEM
     nokogiri (1.18.2-x86_64-darwin)
       racc (~> 1.4)
     nokogiri (1.18.2-x86_64-linux)
-      racc (~> 1.4)
-    nokogiri (1.18.2-x86_64-linux-gnu)
       racc (~> 1.4)
     nokogiri (1.18.2-x86_64-linux-musl)
       racc (~> 1.4)
@@ -393,15 +384,12 @@ GEM
 
 PLATFORMS
   aarch64-linux
-  aarch64-linux-gnu
   aarch64-linux-musl
   arm-linux
-  arm-linux-gnu
   arm-linux-musl
   arm64-darwin
   x86_64-darwin
   x86_64-linux
-  x86_64-linux-gnu
   x86_64-linux-musl
 
 DEPENDENCIES
@@ -438,4 +426,4 @@ RUBY VERSION
    ruby 3.3.5p100
 
 BUNDLED WITH
-   2.6.3
+   2.6.2
