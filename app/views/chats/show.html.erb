@@ -1,5 +1,5 @@
 <div class="shift-250 p-5">
-<h1>Chat with <%= @chat.recipient == current_user ? @chat.sender.username : @chat.recipient.username %></h1>
+<h2>Chat with <%= link_to (@chat.recipient == current_user ? @chat.sender.username : @chat.recipient.username), user_path(@chat.recipient == current_user ? @chat.sender : @chat.recipient) %></h1>
 
 <div id="messages">
   <% @messages.each do |message| %>
@@ -10,8 +10,8 @@
 </div>
 
 <%= simple_form_for [@chat, Message.new], remote: true do |form| %>
-  <%= form.input :content, as: :text, input_html: { rows: 2, placeholder: "Type a message..." } %>
-  <%= form.button :submit, "Send" %>
-  <%= link_to 'Back to Chats', chats_path, class: 'back-button' %>
+  <%= form.input :content, as: :text, input_html: { rows: 2, style: "width: 50%;", placeholder: "Type a message..." } %>
+  <%= form.button :submit, "Send", class: 'btn btn-primary' %>
+  <%= link_to 'Back to Chats', chats_path, class: 'btn btn-primary' %>
 <% end %>
 </div>
