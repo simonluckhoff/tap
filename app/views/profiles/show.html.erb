@@ -1,5 +1,5 @@
 <div class="shift-250" data-controller="follow" data-user-id="<%= @user.id %>" >
-<div class="fade-bg px-3">
+<div class="fade-bg px-5 py-4">
 <div class="div-one">
   <!-- Profile Header -->
     <!-- Profile Picture Column -->
@@ -108,8 +108,8 @@
   </div>
 
   <!-- Posts Grid -->
-  <div class="container">
-  <div class="row border-top pt-4 px-2 inbetween">
+  <div class="container mb-5 pb-5">
+  <div class="row border-top pt-4 px-3 inbetween">
     <% if @user.posts.any? %>
       <% @user.posts.order(created_at: :desc).each do |post| %>
         <div class="col-12 col-md-4 redoing-padding">

@@ -1,21 +1,28 @@
-<div class="shift-250">
-<div class="container mt-4">
-  <h2>Explore Interests</h2>
+<div class="shift-250 mb-5 pb-5">
+<div class="container mt-3 ">
+  <!--<h2 class="fw-bold">Explore Interests</h2>-->
 
   <div class="row mb-4">
     <div class="col-12">
-      <h4>Your Interests</h4>
+      <h5 class="fw-bolder">Your Interests</h5>
       <div class="d-flex flex-wrap gap-2">
         <% @user_interests.each do |interest| %>
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title"><%= interest.title %></h5>
-              <p class="card-text"><small><%= pluralize(interest.posts.count, 'post') %></small></p>
-              <%#= link_to "View Posts", interest_path(interest), class: "btn btn-primary btn-sm" %>
-              <%= button_to "Unfollow", unfollow_interest_path(interest),
-                    method: :delete,
-                    class: "btn btn-outline-danger btn-sm mt-2" %>
-      <div class="content-wrapper">
+          <div class="card width">
+
+            <div class="ca ">
+              <div class="interest-head" style="display: flex; justify-content: space-between; align-items: center;">
+                <h5 class="card-title"><%= interest.title %></h5>
+                <p class="card-text opa"><small>(<%= pluralize(interest.posts.count, 'post') %>)</small></p>
+                <%#= link_to "View Posts", interest_path(interest), class: "btn btn-primary btn-sm" %>
+                <div style="margin-left: auto;">
+                <%= button_to "Unfollow", unfollow_interest_path(interest),
+                      method: :delete,
+                      class: "btn btn-outline-danger btn-sm mt-2" %>
+                </div>
+            </div>
+
+
+      <div class="">
             <div class="interest-posts">
             <% interest.posts.each do |post| %>
                 <div class="col-md-6 col-lg-4 mb-4 wide">
@@ -28,7 +35,7 @@
             </div>
           <% end %>
 
-          <div class="card-body">
+          <div class="ca">
           <div class="like-comment-share">
 
             <div class="d-flex justify-content-left align-items-center mb-2 gap-3">
@@ -83,7 +90,7 @@
             </div>
           </div>
 
-            <p class="card-text text-muted mb-2">
+            <p class="pb-2 text-muted mb-2">
               <%= post.content %><br>
               <%= post.interests.map { |interest| "##{interest.title}" }.join(", ") %><br>  <!-- Show all interests -->
               <!--Posted by <strong><%#= link_to post.user.username, profile_path(post.user) %></strong>-->
@@ -107,20 +114,25 @@
 
   <div class="row">
     <div class="col-12">
-      <h4>All Interests</h4>
+      <h4 class="fw-bold pb-2 mt-5">All Interests</h4>
       <div class="d-flex flex-wrap gap-2">
         <% (@interests - @user_interests).each do |interest| %>
           <div class="card">
-            <div class="card-body">
+            <div class="ca">
+              <div class="interest-head" style="display: flex; justify-content: space-between; align-items: center;">
               <h5 class="card-title"><%= interest.title %></h5>
               <p class="card-text">
-                <small><%= pluralize(interest.posts.count, 'post') %></small>
+                <p class="card-text opa"><small>(<%= pluralize(interest.posts.count, 'post') %>)</small></p>
+                <!--<small><%#= pluralize(interest.posts.count, 'post') %></small>-->
               </p>
               <%#= link_to "View Posts", interest_path(interest), class: "btn btn-primary btn-sm" %>
+              <div style="margin-left: auto;">
               <%= button_to "Follow", follow_interest_path(interest),
                     method: :post,
                     class: "btn btn-outline-primary btn-sm mt-2" %>
-      <div class="content-wrapper">
+              </div>
+            </div>
+      <div class="">
        <div class="interest-posts">
             <% interest.posts.each do |post| %>
                 <div class="col-md-6 col-lg-4 mb-4 wide">
@@ -133,7 +145,7 @@
             </div>
           <% end %>
 
-          <div class="card-body">
+          <div class="ca">
           <div class="like-comment-share">
 
             <div class="d-flex justify-content-left align-items-center mb-2 gap-3">
@@ -188,7 +200,7 @@
             </div>
           </div>
 
-            <p class="card-text text-muted mb-2">
+            <p class=" text-muted mb-2">
               <%= post.content %><br>
               <%= post.interests.map { |interest| "##{interest.title}" }.join(", ") %><br>  <!-- Show all interests -->
               <!--Posted by <strong><%#= link_to post.user.username, profile_path(post.user) %></strong>-->
