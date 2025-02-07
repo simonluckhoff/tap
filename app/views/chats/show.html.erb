@@ -1,17 +1,30 @@
 <div class="shift-250 p-5">
-<h2>Chat with <%= link_to (@chat.recipient == current_user ? @chat.sender.username : @chat.recipient.username), user_path(@chat.recipient == current_user ? @chat.sender : @chat.recipient) %></h1>
+  <!-- Chat Header with Back Button -->
+  <div style="display: flex; justify-content: space-between; align-items: center;">
+    <h3>
+      Chat with
+      <%= link_to (@chat.recipient == current_user ? @chat.sender.username : @chat.recipient.username), user_path(@chat.recipient == current_user ? @chat.sender : @chat.recipient) %>
+    </h3>
+    <%= link_to 'Back to Chats', chats_path, class: 'btn btn-primary' %>
+  </div>
 
-<div id="messages">
-  <% @messages.each do |message| %>
-    <p>
-      <strong><%= message.user.username %>:</strong> <%= message.content %>
-    </p>
-  <% end %>
-</div>
+  <!-- White Box for Messages & Input -->
+  <div id="messages" style="background-color: white; padding: 15px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); margin-top: 15px;">
+    <% @messages.each do |message| %>
+      <div style="margin-bottom: 10px;">
+        <p>
+          <strong><%= message.user.username %>:</strong> <%= message.content %>
+        </p>
+        <small style="color: gray;"><%= message.created_at.strftime("%b %d, %Y %I:%M %p") %></small>
+      </div>
+    <% end %>
 
-<%= simple_form_for [@chat, Message.new], remote: true do |form| %>
-  <%= form.input :content, as: :text, input_html: { rows: 2, style: "width: 50%;", placeholder: "Type a message..." } %>
-  <%= form.button :submit, "Send", class: 'btn btn-primary' %>
-  <%= link_to 'Back to Chats', chats_path, class: 'btn btn-primary' %>
-<% end %>
+    <!-- Message Input inside the Box -->
+    <%= simple_form_for [@chat, Message.new], remote: true do |form| %>
+      <div style="display: flex; align-items: center; gap: 10px; margin-top: 10px;">
+        <%= form.input :content, as: :text, label: false, input_html: { rows: 1, style: "flex-grow: 1; border-radius: 5px; padding: 8px; height: 40px; border: 1px solid #ccc;" , placeholder: "Type a message..." } %>
+        <%= form.button :submit, "Send", class: 'btn btn-primary', style: "height: 40px; padding: 8px 15px;" %>
+      </div>
+    <% end %>
+  </div>
 </div>

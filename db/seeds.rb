@@ -392,18 +392,6 @@ yasha.photo.attach(
 
   puts "Finished creating posts."
 
-  puts "Creating posts..."
-  post = Post.create!(
-    user: matt,
-    content: 'I love being a soccer dad!'
-  )
-
-  post.photo.attach(
-    io: File.open(Rails.root.join("app/assets/images/matt1.jpeg")),
-    filename: "matt1.jpeg",
-    content_type: "image/jpeg"
-  )
-
 # Create follows
 puts "Creating follows..."
 matt = User.find_by(email: 'mattdenton94@gmail.com')
