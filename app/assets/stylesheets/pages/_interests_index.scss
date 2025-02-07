@@ -1,0 +1,43 @@
+.interest-head{
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+
+.card-title{
+  margin-top: 12px;
+}
+
+.opa{
+  opacity: 50%;
+  font-style: italic;
+  padding-left: 6px;
+  margin-top: 19px;
+}
+
+.ca{
+  padding-left: 17px;
+  padding-right: 17px;
+}
+
+.content-wrapper{
+  margin: 0;
+}
+
+.like-comment-share{
+  margin-top: 15px;
+}
+
+.card {
+  border-left: none;
+  border-right: none;
+}
+
+.interest-posts img {
+  border-radius: 0;
+  top: 20px;
+}
+
+// ul{
+//   justify-content: left;
+// }
