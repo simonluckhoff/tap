@@ -1,14 +1,16 @@
 <h1>Users Following You</h1>
 
-  <% if @followers.any? %>
-    <ul>
-      <% @followers.each do |user| %>
-        <li>
+<% if @followers.any? %>
+  <ul>
+    <% @followers.each do |user| %>
+      <li>
+        <div class="dis">
+          <%= cl_image_tag user.photo.key, style: "width: 60px; height: 60px;", class: "profile-image" %>
           <%= link_to user.username, profile_path(user) %>
-          <%#= image_tag user.profile_picture if user.profile_picture.present? %>
-        </li>
-      <% end %>
-    </ul>
-  <% else %>
-    <p>You've got no friends, soz.</p>
-  <% end %>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>You've got no friends, soz.</p>
+<% end %>
