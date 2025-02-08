@@ -8,16 +8,20 @@ class ChatsController < ApplicationController
   end
 
   def show
-    recipient = User.find(params[:recipient_id])
-    @chat = Chat.find_or_create_by(sender: current_user, recipient_id: recipient.id)
-    @messages = @chat.messages.order(created_at: :asc)
+    if params[:recipient_id].present?
+      recipient = User.find(params[:recipient_id])
+      @chat = Chat.find_or_create_by(sender: current_user, recipient_id: recipient.id)
+    else
+      @chat = Chat.find(params[:id])
+    end
+      @messages = @chat.messages.order(created_at: :asc)
   end
 
   def new
   end
 
   def create
-    recipient_id = params.dig(:chat, :recipient_id)
+    recipient_id = params[:recipient_id]
     recipient = User.find_by(id: recipient_id)
 
     # Ensure the recipient exists

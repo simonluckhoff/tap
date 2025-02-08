@@ -3,7 +3,7 @@
     <span class="username">
       <%= link_to "@#{current_user.username}", user_path(current_user) %>
     </span>
-    <%= image_tag current_user.profile_image_url, alt: current_user.username, class: "profile-image" %>
+    <%= cl_image_tag current_user.photo.key, alt: current_user.username, class: "profile-image" %>
   </div>
 
   <h3 class="pt-4">Your Chats</h3>
