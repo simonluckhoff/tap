@@ -1,6 +1,11 @@
-<div class="shift-250 paddd">
-  <% @users.each do |user|%>
-    <!--<li><%#= user.username %></li>-->
-<%= link_to "- #{user.username}", profile_path(user) %>
-  <% end %>
+
+<div class="shift-250 p-5">
+<h2>Search Results</h2>
+
+    <% @users.each do |user|%>
+      <div class="dis">
+        <%= cl_image_tag user.photo.key, style: "width: 60px; height: 60px;", class: "profile-image" %>
+        <%= link_to "#{user.username}", profile_path(user) %>
+      </div>
+    <% end %>
 </div>
